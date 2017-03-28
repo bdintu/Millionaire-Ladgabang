@@ -1,0 +1,1 @@
+http://deadlock.netbeans.org/hudson/job/uml/lastSuccessfulBuild/artifact/build/updates/updates.xml
