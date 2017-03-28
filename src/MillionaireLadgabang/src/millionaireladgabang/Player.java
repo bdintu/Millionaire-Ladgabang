@@ -4,9 +4,9 @@ public class Player {
 
     public static int max_player = 2;
 
-    int id;
-    String name;
-    Money money;
+    private int id;
+    private String name;
+    private Money money;
     
     public Player(int id, String name){
         this.id = id;
