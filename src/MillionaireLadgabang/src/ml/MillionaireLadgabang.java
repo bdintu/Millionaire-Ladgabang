@@ -1,4 +1,4 @@
-package millionaireladgabang;
+package ml;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package millionaireladgabang;
+package ml;
 
 public class Card {
     

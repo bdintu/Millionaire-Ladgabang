@@ -1,4 +1,4 @@
-package millionaireladgabang.Dice;
+package ml.Dice;
 
 public class EvenOdd extends Dice {
     public boolean isEven() {

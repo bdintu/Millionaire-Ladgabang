@@ -1,6 +1,6 @@
-package millionaireladgabang.Dice;
+package ml.Dice;
 
-import millionaireladgabang.Util;
+import ml.Util;
 
 public class Dice {
 

@@ -1,4 +1,4 @@
-package millionaireladgabang;
+package ml;
 
 import java.security.NoSuchAlgorithmException;
 

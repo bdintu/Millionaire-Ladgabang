@@ -1,4 +1,4 @@
-package millionaireladgabang;
+package ml;
 
 import java.util.Random;
 import java.security.MessageDigest;
