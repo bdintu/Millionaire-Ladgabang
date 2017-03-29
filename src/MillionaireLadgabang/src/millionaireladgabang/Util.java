@@ -7,9 +7,9 @@ import java.security.NoSuchAlgorithmException;
 public class Util {
     
     private static Random generator;
-    public static int randomInt(int range){
+    public static int randomInt(int start, int range){
         generator = new Random();
-        return generator.nextInt(range);
+        return generator.nextInt(range) + start;
     }
     
     private static MessageDigest md;

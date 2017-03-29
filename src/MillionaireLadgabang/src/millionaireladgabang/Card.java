@@ -23,6 +23,6 @@ public class Card {
     }
     
     public static int getRandomIndexCard(){
-        return Util.randomInt(amount_card);
+        return Util.randomInt(0,amount_card);
     }
 }
