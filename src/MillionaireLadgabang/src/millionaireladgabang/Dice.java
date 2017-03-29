@@ -16,7 +16,7 @@ public class Dice {
         return sum;
     }
     
-    private void randomDice(){
+    public void randomDice(){
         sum = 0;
         for(int i=0; i<amount_dice; ++i){
             value[i] = Util.randomInt(amount_side);
