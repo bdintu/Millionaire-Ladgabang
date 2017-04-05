@@ -1,5 +1,6 @@
 package ml;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import ml.card.CardList;
 
@@ -9,7 +10,7 @@ import ml.player.PlayerList;
 
 public class Tester {
 
-    public static void main(String[] argv) throws NoSuchAlgorithmException {
+    public static void main(String[] argv) throws NoSuchAlgorithmException, IOException, Exception {
 
         /**
          * Player
@@ -39,6 +40,8 @@ public class Tester {
         
         CardList card = new CardList();
         System.out.println(card.getCard(0,0).getDetail());
+        
+        
         
 
     }

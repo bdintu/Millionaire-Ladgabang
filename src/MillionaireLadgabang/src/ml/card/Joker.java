@@ -12,7 +12,7 @@ public class Joker extends Card {
     }
 
     public void DelMoney(Player player) {
-        player.getMoney().delMoney(amount_money);
+        player.getMoney().addMoney(amount_money);
     }
 
 }

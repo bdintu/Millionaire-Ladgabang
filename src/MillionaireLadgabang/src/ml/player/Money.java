@@ -20,12 +20,8 @@ public class Money {
     }
 
     public void addMoney(int amount) {
-        this.amount += amount;
-    }
-
-    public void delMoney(int amount) {
         if (isMoneyEmpty()) {
-            this.amount -= amount;
+            this.amount += amount;
         }
     }
 
