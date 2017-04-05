@@ -21,25 +21,24 @@ public class Tester {
         player.getPlayer(0).getMoney().startMoney();
         player.getPlayer(1).getMoney().startMoney();
 
-        System.out.println(  player.getPlayer(1).getName()    );
-        System.out.println(  player.getPlayer(1).getMoney().getAmount()  );
+        System.out.println("player 1 name : " + player.getPlayer(1).getName());
+        System.out.println("player 1 money : " + player.getPlayer(1).getMoney().getAmount());
         System.out.println();
-        
+
         /**
          * Dice
          */
         Standate dice_std = new Standate();
-        System.out.println(dice_std.getStandate());
+        System.out.println("Dice random : " + dice_std.getStandate());
 
         HightLow dice_hightlow = new HightLow();
-        System.out.println(dice_hightlow.isHighLow(true));
-        
+        System.out.println("Dice Hight/Low : " + dice_hightlow.isHighLow(true));
+        System.out.println();
+
         /**
          * Card
          */
-        
         CardList card = new CardList();
-        System.out.println(card.getCard(0,0).getDetail());
 
     }
 }

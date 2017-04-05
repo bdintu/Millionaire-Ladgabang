@@ -35,8 +35,7 @@ public class Util {
 
     public static ArrayList readFile(String fileName) throws IOException {
         ArrayList list = new ArrayList();
-        File dir = new File(".");
-        File fin = new File(dir.getCanonicalPath() + File.separator + fileName);
+        File fin = new File(new File(".").getCanonicalPath() + File.separator + fileName);
         FileInputStream fis = new FileInputStream(fin);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
