@@ -4,15 +4,15 @@ import ml.player.Player;
 
 public class Joker extends Card {
 
-    private int deposit;
-    
-    public Joker(int id, String name, String detail, int deposit){
+    private int amount_money;
+
+    public Joker(int id, String name, String detail, int amount_money) {
         super(id, name, detail);
-        this.deposit = deposit;
+        this.amount_money = amount_money;
     }
-    
-    public void getDelMoney(Player player){
-        player.getMoney().delMoney(deposit);
+
+    public void DelMoney(Player player) {
+        player.getMoney().delMoney(amount_money);
     }
-    
+
 }

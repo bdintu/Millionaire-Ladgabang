@@ -2,7 +2,7 @@ package ml.dice;
 
 import ml.Util;
 
-public class Dice {
+public abstract class Dice {
 
     protected int amount_dice = 1;
     protected int amount_side = 6;
