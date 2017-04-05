@@ -1,4 +1,4 @@
-package ml.Dice;
+package ml.dice;
 
 public class HightLow extends Dice {
 

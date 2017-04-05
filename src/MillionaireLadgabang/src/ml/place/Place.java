@@ -1,4 +1,6 @@
-package ml;
+package ml.place;
+
+import ml.player.Player;
 
 public class Place {
     

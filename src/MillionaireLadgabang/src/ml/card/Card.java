@@ -1,4 +1,6 @@
-package ml;
+package ml.card;
+
+import ml.Util;
 
 public class Card {
     
@@ -8,10 +10,7 @@ public class Card {
     private int id;
     private String name;
     private String detail;
-    private int deposit;
-    private int withdraw;
-    private int move;
-    
+
     public static void main(){
         card = new Card[amount_card];
     }
@@ -22,7 +21,7 @@ public class Card {
         this.detail = detail;
     }
     
-    public static int getRandomIndexCard(){
+    public int getRandomIndexCard(){
         return Util.randomInt(0,amount_card);
     }
 }

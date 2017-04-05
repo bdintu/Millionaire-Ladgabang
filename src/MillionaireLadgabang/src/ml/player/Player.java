@@ -1,19 +1,18 @@
-package ml;
+package ml.player;
 
 import java.security.NoSuchAlgorithmException;
+import ml.Util;
 
 public class Player {
-
-    public static int max_player = 2;
-
+    
     private String hash;
     private String name;
     private Money money;
 
     public Player(String name) throws NoSuchAlgorithmException {
         this.name = name;
-        hash = Util.hash(name);
-        money = new Money();
+        this.hash = Util.hash(name);
+        this.money = new Money();
     }
 
     public String getName() {
@@ -22,5 +21,9 @@ public class Player {
 
     public String getHash() {
         return hash;
+    }
+    
+    public Money getMoney() {
+        return money;
     }
 }

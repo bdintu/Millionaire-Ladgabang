@@ -1,4 +1,4 @@
-package ml;
+package ml.place;
 
 public class LandMark {
     
