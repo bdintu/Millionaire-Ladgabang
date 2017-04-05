@@ -1,12 +1,12 @@
 package ml.card;
 
-public  class Card {
-    
+public class Card {
+
     private int id;
     private String name;
     private String detail;
 
-    public Card(int id, String name, String detail){
+    public Card(int id, String name, String detail) {
         this.id = id;
         this.name = name;
         this.detail = detail;

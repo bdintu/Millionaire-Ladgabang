@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class MillionaireLadgabang extends Application {
-    
+
     public static int wide = 1280;
     public static int high = 720;
 

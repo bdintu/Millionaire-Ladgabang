@@ -1,6 +1,7 @@
 package ml.dice;
 
 public class EvenOdd extends Dice {
+
     public boolean isEven() {
         int even = 0;
         for (int i = 0; i < amount_dice; ++i) {

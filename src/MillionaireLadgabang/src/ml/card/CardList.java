@@ -27,10 +27,10 @@ public class CardList {
         switch (index_group) {
             case 0:
                 return joker[index_group];
-                
+
             case amount_card_per_group:
                 return loki[index_card];
-                
+
         }
         return null;
     }

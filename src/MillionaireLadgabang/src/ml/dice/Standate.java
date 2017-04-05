@@ -2,8 +2,8 @@ package ml.dice;
 
 public class Standate extends Dice {
 
-    public void Standate(){
-        
+    public void Standate() {
+
     }
 
     public int getStandate() {

@@ -10,25 +10,25 @@ public abstract class Dice {
     protected int[] points_dice;
     protected int sum;
 
-    public Dice(){
+    public Dice() {
         points_dice = new int[amount_dice];
         sum = 0;
     }
 
-    public void randomPoint(){
-        for(int i=0; i<amount_dice; ++i){
+    public void randomPoint() {
+        for (int i = 0; i < amount_dice; ++i) {
             points_dice[i] = Util.randomInt(1, amount_side);
         }
     }
 
-    public void sumPoints(){
+    public void sumPoints() {
         sum = 0;
-        for(int i=0; i<amount_dice; ++i){
+        for (int i = 0; i < amount_dice; ++i) {
             sum += points_dice[i];
         }
     }
 
-    public int getPoints(){
+    public int getPoints() {
         return sum;
     }
 }
