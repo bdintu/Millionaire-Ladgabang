@@ -23,7 +23,7 @@ public class Tester {
 
         System.out.println(  player.getPlayer(1).getName()    );
         System.out.println(  player.getPlayer(1).getMoney().getAmount()  );
-        System.out.println(  "555"  );
+        System.out.println();
         
         /**
          * Dice
@@ -40,9 +40,6 @@ public class Tester {
         
         CardList card = new CardList();
         System.out.println(card.getCard(0,0).getDetail());
-        
-        
-        
 
     }
 }
