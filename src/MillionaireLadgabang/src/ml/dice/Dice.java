@@ -4,13 +4,8 @@ import ml.Util;
 
 public abstract class Dice {
 
-<<<<<<< HEAD
     protected final int amount_dice = 2;
     protected final int amount_side = 6;
-=======
-    protected int amount_dice = 2;
-    protected int amount_side = 6;
->>>>>>> origin/master
 
     protected int[] points_each_dice;
     protected int points;

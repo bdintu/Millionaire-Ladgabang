@@ -13,6 +13,7 @@ public abstract class Card {
     }
 
     public abstract void AddMoney(Player player);
+    public abstract void MovePlanc(Player player);
 
     public String getName() {
         return name;

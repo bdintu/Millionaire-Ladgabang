@@ -8,21 +8,21 @@ public class CardList {
     private final int amount_group = 2;
     private final int amount_card_per_group = 5;
 
-    private ArrayList<Card> joker;
-    private ArrayList<Card> loki;
+    private ArrayList<Assist> assist;
+    private ArrayList<Libel> libel;
 
     public CardList() {
-        joker = new ArrayList();
-        loki = new ArrayList();
+        assist = new ArrayList();
+        libel = new ArrayList();
         createCard();
     }
 
     public Card getCard(int index_group, int index_card) {
         switch (index_group) {
             case 0:
-                return joker.get(index_card);
+                return assist.get(index_card);
             case 1:
-                return loki.get(index_card);
+                return libel.get(index_card);
             default:
                 return null;
         }
@@ -35,8 +35,8 @@ public class CardList {
     }
 
     private void createCard() {
-        joker.add( new Joker("fdsf", "dfdsff", 200) );
-        loki.add( new Loki("fdsf", "dfdsff", 200) );
+        assist.add( new Assist("fdsf", "dfdsff", 200, 5) );
+        libel.add( new Libel("fdsf", "dfdsff", 200, 6) );
     }
     
     public int size() {
