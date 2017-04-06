@@ -2,13 +2,11 @@ package ml.dice;
 
 public class Standate extends Dice {
 
-    public void Standate() {
-
+    public Standate() {
     }
 
-    public int getStandate() {
-        super.randomPoint();
-        super.sumPoints();
-        return super.getPoints();
+    public int getPoint() {
+        randomDice();
+        return getPoints();
     }
 }

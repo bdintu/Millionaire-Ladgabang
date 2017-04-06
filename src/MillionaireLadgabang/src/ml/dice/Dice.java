@@ -4,31 +4,32 @@ import ml.Util;
 
 public abstract class Dice {
 
-    protected int amount_dice = 1;
-    protected int amount_side = 6;
+    protected final int amount_dice = 2;
+    protected final int amount_side = 6;
 
-    protected int[] points_dice;
-    protected int sum;
+    protected int[] points_each_dice;
+    protected int points;
 
     public Dice() {
-        points_dice = new int[amount_dice];
-        sum = 0;
+        points_each_dice = new int[amount_dice];
+        points = 0;
     }
 
-    public void randomPoint() {
+    public void randomDice() {
         for (int i = 0; i < amount_dice; ++i) {
-            points_dice[i] = Util.randomInt(1, amount_side);
+            points_each_dice[i] = Util.randomInt(1, amount_side);
         }
     }
 
-    public void sumPoints() {
-        sum = 0;
+    private void sumPoints() {
+        points = 0;
         for (int i = 0; i < amount_dice; ++i) {
-            sum += points_dice[i];
+            points += points_each_dice[i];
         }
     }
 
     public int getPoints() {
-        return sum;
+        sumPoints();
+        return points;
     }
 }

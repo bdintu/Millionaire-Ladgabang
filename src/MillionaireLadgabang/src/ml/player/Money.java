@@ -2,8 +2,8 @@ package ml.player;
 
 public class Money {
 
-    public static int start_money = (int) 3e6;
-    public static int money_per_round = (int) 2e5;
+    private final int start_money = (int) 3e6;
+    private final int money_per_round = (int) 2e5;
 
     private int amount;
 
@@ -29,7 +29,7 @@ public class Money {
         return amount > 0;
     }
 
-    public int getAmount() {
+    public int getMoney() {
         return amount;
     }
 }

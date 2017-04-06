@@ -14,8 +14,7 @@ public class HightLow extends Dice {
 
     public boolean isHighLow(boolean take_hight) {
         this.setHight(take_hight);
-        super.randomPoint();
-        super.sumPoints();
+        super.randomDice();
         return this.isHight();
     }
 
@@ -24,6 +23,6 @@ public class HightLow extends Dice {
     }
 
     public boolean isHight() {
-        return super.sum > this.bound_hightlow;
+        return super.points > this.bound_hightlow;
     }
 }

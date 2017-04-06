@@ -1,20 +1,18 @@
 package ml.card;
 
-public class Card {
+import ml.player.Player;
 
-    private int id;
+public abstract class Card {
+
     private String name;
     private String detail;
 
-    public Card(int id, String name, String detail) {
-        this.id = id;
+    public Card(String name, String detail) {
         this.name = name;
         this.detail = detail;
     }
 
-    public int getId() {
-        return id;
-    }
+    public abstract void AddMoney(Player player);
 
     public String getName() {
         return name;

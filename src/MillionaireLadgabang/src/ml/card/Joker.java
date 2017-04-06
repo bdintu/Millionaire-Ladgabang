@@ -6,13 +6,12 @@ public class Joker extends Card {
 
     private int amount_money;
 
-    public Joker(int id, String name, String detail, int amount_money) {
-        super(id, name, detail);
+    public Joker(String name, String detail, int amount_money) {
+        super(name, detail);
         this.amount_money = amount_money;
     }
 
-    public void DelMoney(Player player) {
+    public void AddMoney(Player player) {
         player.getMoney().addMoney(amount_money);
     }
-
 }

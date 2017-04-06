@@ -4,16 +4,13 @@ import ml.player.Player;
 
 public class Place {
 
-    public static int amount_level = 3;
+    private final int amount_level = 3;
 
-    int id;
-    String name;
-    int[] price;
-    int[] buyed;
-    Player player;
+    private String name;
+    private int[] price;
+    private int[] buyed;
 
-    public Place(int id, String name) {
-        this.id = id;
+    public Place(String name) {
         this.name = name;
         this.price = new int[amount_level];
         this.buyed = new int[amount_level];
