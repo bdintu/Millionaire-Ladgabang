@@ -8,19 +8,13 @@ public class Place {
 
     private String name;
     private int[] price;
-    private int[] buyed;
 
-    public Place(String name) {
+    public Place(String name, int[] price) {
         this.name = name;
-        this.price = new int[amount_level];
-        this.buyed = new int[amount_level];
+        this.price = price;
     }
 
     public void buyPlace(Player player) {
         //if(Player.money)
-    }
-
-    public boolean isOwner(Player player) {
-        return this.player.getHash() == player.getHash();
     }
 }
