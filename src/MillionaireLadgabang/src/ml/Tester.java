@@ -19,7 +19,7 @@ public class Tester {
         /**
          * Player
          */
-        String[] name = {"E Ka", "Duran"};
+        String[] name = {"E Ka", "Durian"};
         PlayerList player = new PlayerList(name);
 
         for (int i = 0; i < player.size(); ++i) {
@@ -41,12 +41,11 @@ public class Tester {
         System.out.println();
 
         Paoyingshub paoyingshub = new Paoyingshub();
-
         while (paoyingshub.play(player.getPlayer(1), sn.nextInt())) {
-            System.out.println("You win");
+            System.out.println("Dice Chalenge game : You win");
         }
         paoyingshub.reSet();
-        System.out.println("You lose");
+
 
         /**
          * Card

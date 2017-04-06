@@ -12,38 +12,43 @@ public class Paoyingshub {
 
     private int random_clutter;
     private int tmp_money;
-    private int iter;
+    private int round;
 
     private void begin() {
-        this.random_clutter = Util.randomInt(0, max_round + 1);
+        this.random_clutter = Util.randomInt(0, max_round);
         this.tmp_money = 0;
-        this.iter = 0;
+        this.round = 0;
     }
 
     public void reSet() {
         this.tmp_money = 0;
-        this.iter = 0;
+        this.round = 0;
     }
 
     public boolean play(Player player, int choice) {
 
-        if (iter == 0) {
+        if (round == 0) {
             //player.getMoney().addMoney(amount_play_game);
             begin();
+            System.out.println("random_number_win:" + random_clutter);
+        }
+
+        if (choice == 3) {
+            player.getMoney().addMoney(tmp_money);
+            return false;
         }
 
         if (random_clutter > 0) {
 
-            if (true) {
-                this.tmp_money += money[iter];
-                ++iter;
-                return true;
-            }
+            this.tmp_money += money[round];
+            ++round;
+            --random_clutter;
+            return true;
+
         } else {
             player.getMoney().addMoney(tmp_money);
             return false;
         }
 
-        return false;
     }
 }
