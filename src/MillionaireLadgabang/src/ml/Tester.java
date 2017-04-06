@@ -51,5 +51,11 @@ public class Tester {
          */
         CardList card = new CardList();
         System.out.println(card.getCard(0, 0).getDetail());
+        
+        /**
+         * Buy Place
+         */
+        //PlaceList place = new PlaceList();
+        //p
     }
 }
