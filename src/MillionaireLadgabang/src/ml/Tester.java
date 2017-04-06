@@ -46,7 +46,6 @@ public class Tester {
         }
         paoyingshub.reSet();
 
-
         /**
          * Card
          */

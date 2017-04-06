@@ -17,7 +17,7 @@ public class PlayerList {
 
     private void createPlayer(String[] name) throws NoSuchAlgorithmException {
         for (int i = 0; i < amount_player; ++i) {
-            player.add(new Player(name[i]));
+            player.add(new Player(i, name[i]));
         }
     }
 

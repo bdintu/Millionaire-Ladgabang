@@ -7,14 +7,25 @@ public class Place {
     private final int amount_level = 3;
 
     private String name;
-    private int[] price;
+    private double[] price;
+    private int level;
+    private int owner;
 
-    public Place(String name, int[] price) {
+    public Place(String name, double[] price) {
         this.name = name;
         this.price = price;
     }
 
+    public boolean checkBuyPlace(Player player) {
+        if (player.getMoney().checkMoney(price[level])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void buyPlace(Player player) {
-        //if(Player.money)
+        this.owner = player.getId();
+        player.getMoney().addMoney(price[level]);
     }
 }

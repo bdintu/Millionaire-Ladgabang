@@ -5,13 +5,13 @@ import ml.Util;
 
 public class Player {
 
-    private String hash;
+    private int id;
     private String name;
     private Money money;
 
-    public Player(String name) throws NoSuchAlgorithmException {
+    public Player(int id, String name) throws NoSuchAlgorithmException {
         this.name = name;
-        this.hash = Util.hash(name);
+        this.id = id;
         this.money = new Money();
     }
 
@@ -19,8 +19,8 @@ public class Player {
         return name;
     }
 
-    public String getHash() {
-        return hash;
+    public int getId() {
+        return id;
     }
 
     public Money getMoney() {

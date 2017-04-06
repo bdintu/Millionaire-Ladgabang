@@ -2,10 +2,10 @@ package ml.player;
 
 public class Money {
 
-    private final int start_money = (int) 3e6;
-    private final int money_per_round = (int) 2e5;
+    private final double start_money = 3e6;
+    private final double money_per_round = 2e5;
 
-    private int amount;
+    private double amount;
 
     public Money() {
         amount = 0;
@@ -19,17 +19,25 @@ public class Money {
         this.amount += money_per_round;
     }
 
-    public void addMoney(int amount) {
-        if (isMoneyEmpty()) {
+    public void addMoney(double amount) {
+        if (isMoney()) {
             this.amount += amount;
         }
     }
 
-    public boolean isMoneyEmpty() {
+    public boolean checkMoney(double amount) {
+        if (this.amount > amount) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isMoney() {
         return amount > 0;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return amount;
     }
 }
