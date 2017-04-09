@@ -5,41 +5,33 @@ import ml.Util;
 
 public class CardList {
 
-    private final int amount_group = 2;
-    private final int amount_card_per_group = 5;
+    private final int amount_card = 10;
 
-    private ArrayList<Assist> assist;
-    private ArrayList<Libel> libel;
+    private ArrayList<Card> card;
 
     public CardList() {
-        assist = new ArrayList();
-        libel = new ArrayList();
+        card = new ArrayList();
         createCard();
     }
 
-    public Card getCard(int index_group, int index_card) {
-        switch (index_group) {
-            case 0:
-                return assist.get(index_card);
-            case 1:
-                return libel.get(index_card);
-            default:
-                return null;
-        }
+    public Card getCard(int index_card) {
+        return card.get(index_card);
     }
 
     public Card RandomCard() {
-        int ran_group = Util.randomInt(0, amount_group);
-        int ran_card = Util.randomInt(0, amount_card_per_group);
-        return getCard(ran_group, ran_card);
+        int random_int = Util.randomInt(0, amount_card);
+        return getCard(random_int);
     }
 
     private void createCard() {
-        assist.add( new Assist("fdsf", "dfdsff", 200, 5) );
-        libel.add( new Libel("fdsf", "dfdsff", 200, 6) );
+        card.add(new Card("ปรับตัง 100k", "เสียค่า 100k"));
+        card.get(0).setMoney(1e6);
+
+        card.add(new Card("ไปจุดเริ่มต้น", "ไปยังกลับจุดเริ่ต้น"));
+        card.get(0).setPos(0);
     }
-    
+
     public int size() {
-        return amount_group;
+        return amount_card;
     }
 }

@@ -5,7 +5,6 @@ import ml.player.Player;
 
 public class PlaceList {
     
-    private final int size_place = 28;
     
     private ArrayList<Place> place;
     private ArrayList<LandMark> lanmark;
@@ -29,6 +28,6 @@ public class PlaceList {
     }
     
     public int size(){
-        return size_place;
+        return amount_place;
     }
 }

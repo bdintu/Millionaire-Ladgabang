@@ -5,7 +5,7 @@ import ml.player.PlayerList;
 public class Bord {
 
     public Bord(){
-        
+
     }
 
     public void begin(PlayerList player){
