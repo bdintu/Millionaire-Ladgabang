@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class PlayerList {
 
     private int amount_player;
+    private int trun_player;
     private ArrayList<Player> player;
 
     public PlayerList(String[] name) throws NoSuchAlgorithmException {
         this.amount_player = name.length;
+        this.trun_player = 0;
         this.player = new ArrayList();
         createPlayer(name);
     }
@@ -22,6 +24,14 @@ public class PlayerList {
 
     public Player getPlayer(int i) {
         return player.get(i);
+    }
+    
+    public void nextTrun() {
+        this.trun_player = (trun_player+1) % amount_player;
+    }
+    
+    public int getTrun() {
+        return trun_player;
     }
     
     public int size(){
