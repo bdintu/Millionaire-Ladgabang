@@ -28,7 +28,7 @@ public class LandMark {
 
     public boolean checkMaxLevel(PlaceList place, Player player) {
         for (int i = 0; i < amount_lanmark_member; ++i) {
-            if (!place.getPlace(i).checkMaxLevel()) {
+            if (!place.getPlace(i).isMaxLevel()) {
                 return false;
             }
         }

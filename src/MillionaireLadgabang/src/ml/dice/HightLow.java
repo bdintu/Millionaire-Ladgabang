@@ -2,27 +2,36 @@ package ml.dice;
 
 public class HightLow extends Dice {
 
-    private int bound_hightlow = (super.amount_dice * super.amount_side) / 2;
+    private final int bound_hightlow = (super.amount_dice * super.amount_side) / 2;
 
-    private boolean take_hight;
-    private boolean is_hight;
+    private boolean select_hight;
 
     public HightLow() {
-        this.take_hight = false;
-        this.is_hight = false;
+        this.select_hight = false;
     }
 
-    public boolean isHighLow(boolean take_hight) {
-        this.setHight(take_hight);
-        super.randomDice();
-        return this.isHight();
+    public void randomHightLow() {
+        while (true) {
+            randomDice();
+            sumPoints();
+            if (select_hight == true && getPoints() > bound_hightlow) {
+                return;
+            } else if (select_hight == false && getPoints() <= bound_hightlow) {
+                return;
+            }
+        }
     }
 
-    public void setHight(boolean take_hight) {
-        this.take_hight = take_hight;
+    public void setHight() {
+        this.select_hight = true;
+    }
+    
+    public void setLow() {
+        this.select_hight = false;
     }
 
-    public boolean isHight() {
-        return super.points > this.bound_hightlow;
+    public int getPoints() {
+        randomHightLow();
+        return points;
     }
 }

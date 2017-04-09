@@ -21,7 +21,7 @@ public abstract class Dice {
         }
     }
 
-    private void sumPoints() {
+    protected void sumPoints() {
         points = 0;
         for (int i = 0; i < amount_dice; ++i) {
             points += points_each_dice[i];
@@ -29,7 +29,14 @@ public abstract class Dice {
     }
 
     public int getPoints() {
-        sumPoints();
         return points;
     }
-}
+    
+    public int[] getDice(){
+        return points_each_dice;
+    }
+    
+    public int size(){
+        return amount_dice;
+    }
+ }
