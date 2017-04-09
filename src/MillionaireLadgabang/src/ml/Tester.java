@@ -43,6 +43,8 @@ public class Tester {
          * name = {"Durian", "E Ka"}; คือ Durian เล่นก่อน
          *
          * อันนี้ทำไม่ทัน ฝากทำต่อด้วยเน้ออออ อันนี้ทำไม่ทัน ฝากทำต่อด้วยเน้ออออ
+         * 
+         * หรือขี้เกียจ ก็ข้ามไปเลย 555 
          *
          */
         // เออ แล้วเอามายัดในนี้
@@ -86,7 +88,13 @@ public class Tester {
              * เช็คว่า turn ของใคร
              */
             int turn = player.getTurn();
-            System.out.println("ตาของผู้เล่นชื่อ : " + player.getPlayer(turn).getName());
+   
+            /**
+             * พิมพ์ข้อมูลส่วนตัววว
+             */
+            System.out.println("\tname : " + player.getPlayer(turn).getName());
+            System.out.println("\tmoney : " + player.getPlayer(turn).getMoney().getMoney());
+            System.out.println("\tpos : " + player.getPlayer(turn).getPos());
 
             /**
              * Dicee
@@ -133,44 +141,64 @@ public class Tester {
             /**
              * เดินไป walk ช่อง
              */
-            player.getPlayer(turn).addPos(walk);
+            player.getPlayer(turn).addPos(walk, player.getPlayer(turn));
             int pos = player.getPlayer(turn).getPos();
 
-            System.out.println("ได้เดินไปเท่านี้ช่อง : " + walk);
+            System.out.println("ได้เดินไป : " + walk + "ช่อง");
             System.out.println("เดินไปตกช่องที่ : " + pos);
-            System.out.println("ซึ่งช่องนี้มีชื่อว่าาา ว่าาา : " + place.getPlace(pos).getName());
             
+            /**
+             * พิมพ์ข้อมูลของช่องที่ตก
+             */
+            System.out.println("\tplace level : " + place.getPlace(pos).getName());
+            System.out.println("\tplace level : " + place.getPlace(pos).getOwner());
+            System.out.println("\tplace level : " + place.getPlace(pos).getLevel());         
 
             /**
              * มาสู่อันที่เยอะที่สุดละะะ
              */
-            System.out.println("เมื่อมาตกแล้ว เช็คว่าช่องนี้เป็นประเภทสิ่งก่อสร้าง หรือ สถานที่วัดดวง/ พิเศษ");
+            System.out.println("เมื่อมาตกแล้ว เช็คว่าช่องนี้สามารถซื้อบ้านได้หรือไม่");
             if (place.getPlace(pos).canBuild()) {
-                System.out.println("ช่องนี้เป็นสิ่งก็สร้างได้");
-                System.out.println("เช็คว่าเป็นช่องของตัวเองหรือเปล่า");
+                System.out.println("\tช่องนี้เป็นสามารถซื้อบ้านได้");
+
+                System.out.println("ช่องนี้เป็นของตัวเองหรือเปล่า");
                 if (place.getPlace(pos).isOwner(player.getPlayer(turn))) {
-                    System.out.println("ถ้าเป็นช่องของตัวเอง");
-                    /**
-                     *
-                     * จะอัพไรมั้ยย เดี่ยวมาทำเหมือนกันน เยอะไปละ
-                     *
-                     */
+                    System.out.println("\tช่องนี้เป็นของตัวเอง");
 
+                    // จะซื้อบ้าน เช็คว่าเวลตันยังง
+                    if(!place.getPlace(pos).isMaxLevel()){
+                        System.out.println("ช่องนี้ยังเวลไม่ตัน จะซื้อมายยย 1) ซื้อ 2) ไม่ซื้อ");
+                        boolean is_buy = sn.nextBoolean();
+                        
+                        // อันนี้ จะซื้อบ้าน / อัพเวลนะ
+                        if(is_buy){
+                            System.out.println("ต้องการอัพเกตบ้านน");
+                            System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าซื้อบ้านเวลต่อไปหรอไม่");
+                            if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn))) {
+                                System.out.println("\t อัพเกตบ้านเรียบร้อยย");
+                                place.getPlace(pos).buyPlace(player.getPlayer(turn));
+                            } else {
+                               System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
+                                break;
+                            }
+                        }
+                    }
                 } else {
-                    System.out.println("ถ้าไม่ใช่ของตัวเอง ก็จ่ายค่าผ่านทาง");
+                    System.out.println("\tช่องนี้ไม่ใช้ของตัวเอง");
 
+                    System.out.println("สามารถใช้การ์ดได้");
                     /**
                      *
                      * จะใช้การ์ดอะไรมั้ยยยย เดี่ยวมาทำเหมือนกันน เยอะไปละ
                      *
                      */
-                    System.out.println("โดยเช็คก่อนว่ายังมีตังจ่ายค่าผ่านทางใหม");
-                    if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn))) {
-                        System.out.println("ถ้ามีตังจ่ายย ก็จ่ายค่าปรับปายยย");
-                        place.getPlace(pos).canPayToll(player.getPlayer(turn));
+                    System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าผ่านทางใหม");
+                    if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                        place.getPlace(pos).payToll(player.getPlayer(turn));
+                        System.out.println("\tมีตังจ่ายยค่าปรับ จ่ายเรียบร้อยย");
 
                     } else {
-                        System.out.println("ถ้าไม่มีตังจ่ายย ล้มละลายยยยย");
+                        System.out.println("\tไม่มีตังจ่ายยค่าปรับ ล้มละลายยยยย");
                         break;
                     }
 
@@ -183,10 +211,12 @@ public class Tester {
                 }
                 player.nextTurn();
                 System.out.println("เชิญ เทรินต่อไป");
-                System.out.println("------------------------------");
+                System.out.println("----------------------------------------");
             } else {
-                System.out.println("ช่องนี้ไมาสามารถก่อสร้างได้");
-
+                switch(pos){
+                    case 0:
+                        //start
+                }
             }
         }
 

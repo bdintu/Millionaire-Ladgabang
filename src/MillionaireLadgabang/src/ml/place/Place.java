@@ -17,7 +17,7 @@ public class Place {
         this.name = name;
         this.can_build = can_build;
         this.owner = -1;
-        this.level = 0;
+        this.level = -1;
         this.toll = toll;
         this.price = price;
     }
@@ -37,6 +37,10 @@ public class Place {
             return false;
         }
     }
+    
+    public void payToll(Player player) {
+        player.getMoney().addMoney(toll[level]);
+    }
 
     public void buyPlace(Player player) {
         setOwner(player);
@@ -53,7 +57,7 @@ public class Place {
     }
     
     public boolean isMaxLevel() {
-        return amount_level == level;
+        return level == (amount_level-1);
     }
     
     public int getLevel(){

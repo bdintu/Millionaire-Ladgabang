@@ -5,6 +5,7 @@ import ml.player.Player;
 
 public class PlaceList {
 
+    public static int amount_side = 4;
     public static int amount_place = 28;
 
     private ArrayList<Place> place;
@@ -54,13 +55,17 @@ public class PlaceList {
         place.add(new Place("a27", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
 
         lanmark.add(new LandMark(new int[]{1, 2}, 7e4));
-        lanmark.add(new LandMark(new int[]{1, 2}, 7e4));
-        lanmark.add(new LandMark(new int[]{1, 2}, 7e4));
-        lanmark.add(new LandMark(new int[]{1, 2}, 7e4));
+        lanmark.add(new LandMark(new int[]{8, 9}, 7e4));
+        lanmark.add(new LandMark(new int[]{15, 16}, 7e4));
+        lanmark.add(new LandMark(new int[]{21, 22}, 7e4));
     }
 
     public Place getPlace(int i) {
         return place.get(i);
+    }
+    
+    public Place getPlace(Player player) {
+        return place.get(player.getId());
     }
 
     public int size() {

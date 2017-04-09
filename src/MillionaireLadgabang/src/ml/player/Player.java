@@ -31,8 +31,11 @@ public class Player {
         this.pos = pos;
     }
 
-    public void addPos(int walk) {
-        this.pos = pos + walk % amount_place;
+    public void addPos(int walk, Player player) {
+        if(pos + walk > amount_place){
+            player.getMoney().addMoneyPerRound();
+        }
+        this.pos = (pos + walk) % amount_place;
     }
 
     public int getPos() {
