@@ -2,7 +2,7 @@ package ml.player;
 
 public class Money {
 
-    private final double start_money = 3e6;
+    private final double initial_money = 3e6;
     private final double money_per_round = 2e5;
 
     private double amount;
@@ -11,8 +11,8 @@ public class Money {
         amount = 0;
     }
 
-    public void startMoney() {
-        this.amount = start_money;
+    public void setInitialMoney() {
+        this.amount = initial_money;
     }
 
     public void addMoneyPerRound() {
@@ -20,9 +20,7 @@ public class Money {
     }
 
     public void addMoney(double amount) {
-        if (isMoney()) {
             this.amount += amount;
-        }
     }
 
     public boolean checkMoney(double amount) {

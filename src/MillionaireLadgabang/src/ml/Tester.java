@@ -14,21 +14,24 @@ public class Tester {
 
     public static void main(String[] argv) throws NoSuchAlgorithmException, IOException, Exception {
 
+        //ลบด้วย
         Scanner sn = new Scanner(System.in);
 
-        /**
-         * Player
-         */
+        // create player
         String[] name = {"E Ka", "Durian"};
         PlayerList player = new PlayerList(name);
 
+        // set begin money
         for (int i = 0; i < player.size(); ++i) {
-            player.getPlayer(i).getMoney().startMoney();
+            player.getPlayer(i).getMoney().setInitialMoney();
         }
 
-        System.out.println("player 1 name : " + player.getPlayer(1).getName());
-        System.out.println("player 1 money : " + player.getPlayer(1).getMoney().getMoney());
-        System.out.println();
+        //get name and money each player
+        for (int i = 0; i < player.size(); ++i) {
+            System.out.println("Player " + i);
+            System.out.println("\tname : " + player.getPlayer(i).getName());
+            System.out.println("\tmoney : " + player.getPlayer(i).getMoney().getMoney());
+        }
 
         /**
          * Dice

@@ -8,7 +8,7 @@ public class PlaceList {
     private final int size_place = 28;
     
     private ArrayList<Place> place;
-    private ArrayList<LanMark> lanmark;
+    private ArrayList<LandMark> lanmark;
     
     public PlaceList(){
         place = new ArrayList();
@@ -17,11 +17,11 @@ public class PlaceList {
     }
     
     public void createPlace(){
-        place.add( new Place("start", new double[]{2e3, 3e3, 5e3}));
-        place.add( new Place("วัดเกfdfกี", new double[]{2e3, 3e3, 5e3}));
-        place.add( new Place("วัดเdfdกกี", new double[]{2e3, 3e3, 5e3}));
+        place.add( new Place("start", new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add( new Place("วัดเกfdfกี", new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add( new Place("วัดเdfdกกี", new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
-        lanmark.add(new int[]{1,2},7e4);
+        lanmark.add(new LandMark(new int[]{1,2}, 7e4));
     }
     
     public Place getPlace(int i) {

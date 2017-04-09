@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class PlayerList {
 
-    private final int amount_player;
-
+    private int amount_player;
     private ArrayList<Player> player;
 
     public PlayerList(String[] name) throws NoSuchAlgorithmException {

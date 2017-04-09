@@ -9,10 +9,10 @@ public class Place {
     private String name;
     private int owner;
     private int level;
-    private double fine;
+    private double[] fine;
     private double[] price;
 
-    public Place(String name, double fine, double[] price) {
+    public Place(String name, double[] fine, double[] price) {
         this.name = name;
         this.price = price;
         this.owner = -1;
