@@ -21,9 +21,9 @@ public class EvenOdd extends Dice {
         while (true) {
             randomDice();
             sumPoints();
-            if (select_even == true && getPoints()%2==0) {
+            if (select_even == true && super.getPoints()%2==0) {
                 return;
-            } else if (select_even == false && getPoints()%2==1) {
+            } else if (select_even == false && super.getPoints()%2==1) {
                 return;
             }
         }

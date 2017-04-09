@@ -14,9 +14,9 @@ public class HightLow extends Dice {
         while (true) {
             randomDice();
             sumPoints();
-            if (select_hight == true && getPoints() > bound_hightlow) {
+            if (select_hight == true && super.getPoints() > bound_hightlow) {
                 return;
-            } else if (select_hight == false && getPoints() <= bound_hightlow) {
+            } else if (select_hight == false && super.getPoints() <= bound_hightlow) {
                 return;
             }
         }
