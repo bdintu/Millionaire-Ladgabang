@@ -1,6 +1,7 @@
-package ml.dice;
+package ml;
 
 import ml.Util;
+import ml.player.Player;
 import ml.player.Player;
 
 public class Paoyingshub {
@@ -10,12 +11,12 @@ public class Paoyingshub {
     private final int money[] = {(int) 1e6, (int) 4e6, (int) 10e6};
     private final String str[] = {"scissor", "rock", "paper", "exit"};
 
-    private int random_clutter;
+    private int random_round;
     private int tmp_money;
     private int round;
 
     private void begin() {
-        this.random_clutter = Util.randomInt(0, max_round);
+        this.random_round = Util.randomInt(0, max_round);
         this.tmp_money = 0;
         this.round = 0;
     }
@@ -30,7 +31,7 @@ public class Paoyingshub {
         if (round == 0) {
             //player.getMoney().addMoney(amount_play_game);
             begin();
-            System.out.println("random_number_win:" + random_clutter);
+            System.out.println("random_number_win:" + random_round);
         }
 
         if (choice == 3) {
@@ -38,17 +39,18 @@ public class Paoyingshub {
             return false;
         }
 
-        if (random_clutter > 0) {
-
+        if (random_round > 0) {
             this.tmp_money += money[round];
             ++round;
-            --random_clutter;
+            --random_round;
             return true;
-
         } else {
             player.getMoney().addMoney(tmp_money);
             return false;
         }
+    }
 
+    public int getRandomRound() {
+        return random_round;
     }
 }

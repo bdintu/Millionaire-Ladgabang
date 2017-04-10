@@ -3,10 +3,12 @@ package ml.dice;
 public class HightLow extends Dice {
 
     private final int bound_hightlow = (super.amount_dice * super.amount_side) / 2;
+    private final int max_limit = 3;
 
     private boolean select_hight;
 
     public HightLow() {
+        setLimit(max_limit);
         this.select_hight = false;
     }
 
@@ -32,6 +34,7 @@ public class HightLow extends Dice {
 
     public int getPoints() {
         randomHightLow();
+        delLimit();
         return points;
     }
 }

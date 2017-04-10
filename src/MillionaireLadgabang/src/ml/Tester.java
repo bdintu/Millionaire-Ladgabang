@@ -5,14 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import ml.card.CardList;
-
+import ml.dice.DiceList;
 import ml.place.PlaceList;
 import ml.player.PlayerList;
-
-import ml.dice.EvenOdd;
-import ml.dice.HightLow;
-import ml.dice.Paoyingshub;
-import ml.dice.Standate;
 
 public class Tester {
 
@@ -72,13 +67,9 @@ public class Tester {
         // สร้างสถานที่ตามมาา
         PlaceList place = new PlaceList();
 
-        // สร้างลูกเต๋าสุ่มปกติ 0-12
-        Standate dice_std = new Standate();
-        // สร้างลูกเต๋าสูงต่ำ
-        HightLow dice_hightlow = new HightLow();
-        // สร้างลูกเต๋าคู่คี่
-        EvenOdd dice_evenodd = new EvenOdd();
-        // สร้างเกมส์เป่ายิ่งฉุบ
+        // สร้างลูกเต๋า
+        DiceList dice = new DiceList(player);
+        // สร้างมินิเกมส์เป่ายิ่งฉุบ
         Paoyingshub paoyingshub = new Paoyingshub();
 
         // ลูปเกมส์ละ
@@ -88,6 +79,7 @@ public class Tester {
              * เช็คว่า turn ของใคร
              */
             int turn = player.getTurn();
+            System.out.println("Turn : " + turn);
 
             /**
              * พิมพ์ข้อมูลส่วนตัววว
@@ -105,38 +97,52 @@ public class Tester {
             switch (select_dice) {
                 case 1:
                     System.out.println("เลือกสุ่มเต๋าปกติ 0-12");
-                    walk = dice_std.getPoints();
+                    // Std คือชื่แลูกเต๋าปกติ ส่ง ผู้เล่นเข้าไปเพราะ ผู้เล่นจำกัดจำนวนครั้งที่ทอยได้
+                    walk = dice.getStd(player.getPlayer(turn)).getPoints();
                     break;
                 case 2:
                     System.out.println("เลือกคู่คี่");
-                    System.out.println("เลือกลูกเต๋า 1)คู่ 2)คี่");
-                    select_dice = sn.nextInt();
-                    switch (select_dice) {
-                        case 1:
-                            dice_evenodd.setEven();
-                            break;
-                        case 2:
-                            dice_evenodd.setOdd();
-                            break;
+                    // เช็คว่าใช้ครบไปยั้งงง
+                    System.out.println("เหลือคู่คี่อีก : " + dice.getEvenOdd(player.getPlayer(turn)).getLimit() + "ครั้ง");
+                    if(dice.getEvenOdd(player.getPlayer(turn)).isNotLimit()){
+                        System.out.println("เลือกลูกเต๋า 1)คู่ 2)คี่");
+                        select_dice = sn.nextInt();
+                        switch (select_dice) {
+                            case 1:
+                                dice.getEvenOdd(player.getPlayer(turn)).setEven();
+                                break;
+                            case 2:
+                                dice.getEvenOdd(player.getPlayer(turn)).setOdd();
+                                break;
+                        }
+                        walk = dice.getEvenOdd(player.getPlayer(turn)).getPoints();
+                    } else {
+                        System.out.println("ใช้คู่คี่เต็มลิมิตแย้ววว");
                     }
-                    walk = dice_evenodd.getPoints();
                     break;
                 case 3:
                     System.out.println("เลือกสูงต่ำ");
-                    System.out.println("เลือกลูกเต๋า 1)สูง 2)ต่ำ");
-                    select_dice = sn.nextInt();
-                    switch (select_dice) {
-                        case 1:
-                            dice_hightlow.setHight();
-                            break;
-                        case 2:
-                            dice_hightlow.setLow();
-                            break;
-                    }
-                    walk = dice_hightlow.getPoints();
+                    // เช็คว่าใช้ครบไปยั้งงง
+                    System.out.println("เหลือสูงต่ำอีก : " + dice.getHightLow(player.getPlayer(turn)).getLimit() + "ครั้ง");
+                    if(dice.getHightLow(player.getPlayer(turn)).isNotLimit()){                    
+                        System.out.println("เลือกลูกเต๋า 1)สูง 2)ต่ำ");
+                        select_dice = sn.nextInt();
+                        switch (select_dice) {
+                            case 1:
+                                dice.getHightLow(player.getPlayer(turn)).setHight();
+                                break;
+                            case 2:
+                                dice.getHightLow(player.getPlayer(turn)).setLow();
+                                break;
+                        }
+                        walk = dice.getHightLow(player.getPlayer(turn)).getPoints();
+                    } else {
+                        System.out.println("ใช้สูงต่ำเต็มลิมิตแย้ววว");
+                    }                        
                     break;
             }
-            System.out.println("ทอยลูกเต๋าได้เท่านี้แต้ม : " + walk);
+            System.out.println("ทอยลูกเต๋าได้ : " + walk + "แต้ม");
+            System.out.println("ช่องเดิม : " + player.getPlayer(turn).getPos());
 
             /**
              * เดินไป walk ช่อง
@@ -144,14 +150,13 @@ public class Tester {
             player.getPlayer(turn).addPos(walk, player.getPlayer(turn));
             int pos = player.getPlayer(turn).getPos();
 
-            System.out.println("ได้เดินไป : " + walk + "ช่อง");
             System.out.println("เดินไปตกช่องที่ : " + pos);
 
             /**
              * พิมพ์ข้อมูลของช่องที่ตก
              */
-            System.out.println("\tplace level : " + place.getPlace(pos).getName());
-            System.out.println("\tplace level : " + place.getPlace(pos).getOwner());
+            System.out.println("\tplace name : " + place.getPlace(pos).getName());
+            System.out.println("\tOwner : " + place.getPlace(pos).getOwner());
             System.out.println("\tplace level : " + place.getPlace(pos).getLevel());
 
             /**
@@ -167,7 +172,7 @@ public class Tester {
 
                     // จะซื้อบ้าน เช็คว่าเวลตันยังง
                     if (!place.getPlace(pos).isMaxLevel()) {
-                        System.out.println("ช่องนี้ยังเวลไม่ตัน จะซื้อมายยย 1) ซื้อ 2) ไม่ซื้อ");
+                        System.out.println("ช่องนี้ยังเวลไม่ตัน จะซื้อมายยย true) ซื้อ false) ไม่ซื้อ");
                         boolean is_buy = sn.nextBoolean();
 
                         // อันนี้ จะซื้อบ้าน / อัพเวลนะ
@@ -180,6 +185,8 @@ public class Tester {
                             } else {
                                 System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
                                 player.getPlayer(turn).setLose();
+                                // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                                break;
                             }
                         }
                     }
@@ -203,9 +210,11 @@ public class Tester {
                     } else {
                         System.out.println("\tไม่มีตังจ่ายยค่าปรับ ล้มละลายยยยย");
                         player.getPlayer(turn).setLose();
+                        // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                        break;
                     }
 
-                    System.out.println("จะซื้อต่ออะเป่าาาา");
+                    System.out.println("จะซื้อต่ออะเป่าาาา true) ซื้อ false) ไม่ซื้อ");
                     boolean is_buy = sn.nextBoolean();
 
                     // อันนี้ จะซื้อบ้านต่อนะ
@@ -223,7 +232,7 @@ public class Tester {
 
                 } else {
                     System.out.println("\tช่องนี้ไม่มีเจ้าของ");
-                    System.out.println("จะซื้อบ้านมายยย 1) ซื้อ 2) ไม่ซื้อ");
+                    System.out.println("จะซื้อบ้านมายยย true) ซื้อ false) ไม่ซื้อ");
                     boolean is_buy = sn.nextBoolean();
 
                     // อันนี้ จะซื้อบ้าน
@@ -245,17 +254,59 @@ public class Tester {
             } else {
                 System.out.println("\tช่องนี้ไม่สามารถซื้อบ้านได้");
                 switch (pos) {
+                    // นับช่อง start เป็น 0 จนถึงช่องที่ 27 เป็นช่องสุดท้าย
                     case 0:
-                    //start
+                        System.out.println("Start");
+                        break;
+                    case 3:
+                        System.out.println("มินิเกมส์");
+                        System.out.println("คุณเลือก 0)scissor 1)rock 2)paper 3)ไม่เลือก");
+                        int select = sn.nextInt();
+                        /**
+                         * อันนี้ ตามที่คุยไว่ ว่ามันจะล็อครอบที่ชนะเลยยย
+                         * 
+                         */
+                        System.out.println("จำนวนรอบที่ล็อคให้ชนะ" + paoyingshub.getRandomRound());
+                        while (paoyingshub.play(player.getPlayer(turn), select)) {
+                            // อันนี้ผู้ใช้ออกอะไร ก็ให้ใส่ภาพตามที่ผู้ใช้เลือก
+                            System.out.println("Dice Chalenge game : You win");
+                        }
+                        paoyingshub.reSet();
+                        break;                        
+                    case 7:
+                       System.out.println("สำนักทะเบียน");
+                       /**
+                        * อันนี้ให้ทำไรอะ ปรับตังมะ
+                        */
+                       if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                            System.out.println("\t จ่ายค่าทะเบียนเรียน เรียบร้อยย");
+                            place.getPlace(pos).payToll(player.getPlayer(turn));
+                        } else {
+                            System.out.println("\tไม่มีตังจ่ายยค่าทะเบียนเรียน ล้มละลายยยยย");
+                            player.getPlayer(turn).setLose();
+                        } 
+                       break;
+                    case 11:
+                        System.out.println("การ์ด");
+                        break;                         
+                    case 14:
+                        System.out.println("วัดปลูก");
+                        /**
+                         * อันนี้ให้ทำไรวะ 555
+                         */
+                        break;      
+                    case 21:
+                        System.out.println("วินเกกี");
+                        // ให้ผู้ใช้เลือกที่ต้องการจะไป
+                        int select_pos = sn.nextInt();
+                        player.getPlayer(turn).setPos(select_pos);
+                        pos = player.getPlayer(turn).getPos();
+                        break;
+                    case 25:
+                        System.out.println("การ์ด");
+                        break;                           
                 }
             }
         }
-
-        // อันนี้ลองเทสลูกเต๋า
-        /**
-         * while (paoyingshub.play(player.getPlayer(1), int_select)) {
-         * System.out.println("Dice Chalenge game : You win"); }
-         * paoyingshub.reSet();
-         */
     }
 }

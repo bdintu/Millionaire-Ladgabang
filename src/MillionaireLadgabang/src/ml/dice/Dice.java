@@ -9,6 +9,7 @@ public abstract class Dice {
 
     protected int[] points_each_dice;
     protected int points;
+    protected int limit;
 
     public Dice() {
         points_each_dice = new int[amount_dice];
@@ -31,12 +32,28 @@ public abstract class Dice {
     public int getPoints() {
         return points;
     }
-    
-    public int[] getDice(){
+
+    public int[] getDice() {
         return points_each_dice;
     }
-    
-    public int size(){
+
+    public void delLimit() {
+        --this.limit;
+    }
+
+    public boolean isNotLimit() {
+        return limit != 0;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public int size() {
         return amount_dice;
     }
- }
+}

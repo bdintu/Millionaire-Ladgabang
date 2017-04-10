@@ -87,7 +87,7 @@ public class Place {
     }
 
     public boolean haveOwner() {
-        return owner == -1;
+        return owner != -1;
     }
 
     public int getOwner() {
