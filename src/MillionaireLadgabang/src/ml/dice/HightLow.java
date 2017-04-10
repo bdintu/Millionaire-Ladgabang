@@ -27,7 +27,7 @@ public class HightLow extends Dice {
     public void setHight() {
         this.select_hight = true;
     }
-    
+
     public void setLow() {
         this.select_hight = false;
     }

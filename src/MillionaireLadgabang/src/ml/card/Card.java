@@ -6,7 +6,7 @@ public class Card {
 
     private String name;
     private String detail;
-    
+
     private double amount_money;
     private int pos_place;
 

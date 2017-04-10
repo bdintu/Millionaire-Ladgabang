@@ -46,7 +46,7 @@ public class Util {
         }
 
         br.close();
-        
+
         return list;
     }
 }

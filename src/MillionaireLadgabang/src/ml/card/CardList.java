@@ -29,7 +29,7 @@ public class CardList {
 
         card.add(new Card("ไปจุดเริ่มต้น", "ไปยังกลับจุดเริ่ต้น"));
         card.get(1).setPos(0);
-        
+
         card.add(new Card("เดินไป 5 ช่อง", "เดินไป 5 ช่อง"));
         card.get(2).setPos(0);
     }

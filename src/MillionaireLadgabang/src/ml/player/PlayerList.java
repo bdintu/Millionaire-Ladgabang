@@ -25,16 +25,16 @@ public class PlayerList {
     public Player getPlayer(int i) {
         return player.get(i);
     }
-    
+
     public void nextTurn() {
-        this.turn_player = (turn_player+1) % amount_player;
+        this.turn_player = (turn_player + 1) % amount_player;
     }
-    
+
     public int getTurn() {
         return turn_player;
     }
-    
-    public int size(){
+
+    public int size() {
         return amount_player;
     }
 }

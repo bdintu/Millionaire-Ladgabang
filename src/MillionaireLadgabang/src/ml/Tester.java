@@ -104,7 +104,7 @@ public class Tester {
                     System.out.println("เลือกคู่คี่");
                     // เช็คว่าใช้ครบไปยั้งงง
                     System.out.println("เหลือคู่คี่อีก : " + dice.getEvenOdd(player.getPlayer(turn)).getLimit() + "ครั้ง");
-                    if(dice.getEvenOdd(player.getPlayer(turn)).isNotLimit()){
+                    if (dice.getEvenOdd(player.getPlayer(turn)).isNotLimit()) {
                         System.out.println("เลือกลูกเต๋า 1)คู่ 2)คี่");
                         select_dice = sn.nextInt();
                         switch (select_dice) {
@@ -124,7 +124,7 @@ public class Tester {
                     System.out.println("เลือกสูงต่ำ");
                     // เช็คว่าใช้ครบไปยั้งงง
                     System.out.println("เหลือสูงต่ำอีก : " + dice.getHightLow(player.getPlayer(turn)).getLimit() + "ครั้ง");
-                    if(dice.getHightLow(player.getPlayer(turn)).isNotLimit()){                    
+                    if (dice.getHightLow(player.getPlayer(turn)).isNotLimit()) {
                         System.out.println("เลือกลูกเต๋า 1)สูง 2)ต่ำ");
                         select_dice = sn.nextInt();
                         switch (select_dice) {
@@ -138,7 +138,7 @@ public class Tester {
                         walk = dice.getHightLow(player.getPlayer(turn)).getPoints();
                     } else {
                         System.out.println("ใช้สูงต่ำเต็มลิมิตแย้ววว");
-                    }                        
+                    }
                     break;
             }
             System.out.println("ทอยลูกเต๋าได้ : " + walk + "แต้ม");
@@ -227,6 +227,8 @@ public class Tester {
                         } else {
                             System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
                             player.getPlayer(turn).setLose();
+                            // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                            break;
                         }
                     }
 
@@ -245,12 +247,19 @@ public class Tester {
                         } else {
                             System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
                             player.getPlayer(turn).setLose();
+                            // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                            break;
                         }
-                    }                    
+                    }
                 }
-                player.nextTurn();
-                System.out.println("เชิญ เทรินต่อไป");
-                System.out.println("----------------------------------------");
+
+                /**
+                 * พิมพ์ข้อมูลของช่องที่ตก
+                 */
+                System.out.println("\tplace name : " + place.getPlace(pos).getName());
+                System.out.println("\tOwner : " + place.getPlace(pos).getOwner());
+                System.out.println("\tplace level : " + place.getPlace(pos).getLevel());
+
             } else {
                 System.out.println("\tช่องนี้ไม่สามารถซื้อบ้านได้");
                 switch (pos) {
@@ -264,7 +273,7 @@ public class Tester {
                         int select = sn.nextInt();
                         /**
                          * อันนี้ ตามที่คุยไว่ ว่ามันจะล็อครอบที่ชนะเลยยย
-                         * 
+                         *
                          */
                         System.out.println("จำนวนรอบที่ล็อคให้ชนะ" + paoyingshub.getRandomRound());
                         while (paoyingshub.play(player.getPlayer(turn), select)) {
@@ -272,29 +281,31 @@ public class Tester {
                             System.out.println("Dice Chalenge game : You win");
                         }
                         paoyingshub.reSet();
-                        break;                        
+                        break;
                     case 7:
-                       System.out.println("สำนักทะเบียน");
-                       /**
-                        * อันนี้ให้ทำไรอะ ปรับตังมะ
-                        */
-                       if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                        System.out.println("สำนักทะเบียน");
+                        /**
+                         * อันนี้ให้ทำไรอะ ปรับตังมะ
+                         */
+                        if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
                             System.out.println("\t จ่ายค่าทะเบียนเรียน เรียบร้อยย");
                             place.getPlace(pos).payToll(player.getPlayer(turn));
                         } else {
                             System.out.println("\tไม่มีตังจ่ายยค่าทะเบียนเรียน ล้มละลายยยยย");
                             player.getPlayer(turn).setLose();
-                        } 
-                       break;
+                            // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                            break;
+                        }
+                        break;
                     case 11:
                         System.out.println("การ์ด");
-                        break;                         
+                        break;
                     case 14:
                         System.out.println("วัดปลูก");
                         /**
                          * อันนี้ให้ทำไรวะ 555
                          */
-                        break;      
+                        break;
                     case 21:
                         System.out.println("วินเกกี");
                         // ให้ผู้ใช้เลือกที่ต้องการจะไป
@@ -304,9 +315,13 @@ public class Tester {
                         break;
                     case 25:
                         System.out.println("การ์ด");
-                        break;                           
+                        break;
                 }
             }
+
+            player.nextTurn();
+            System.out.println("เชิญ เทรินต่อไป");
+            System.out.println("----------------------------------------");
         }
     }
 }

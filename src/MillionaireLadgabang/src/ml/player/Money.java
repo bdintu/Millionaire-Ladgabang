@@ -20,7 +20,7 @@ public class Money {
     }
 
     public void addMoney(double amount) {
-            this.amount += amount;
+        this.amount += amount;
     }
 
     public boolean checkMoney(double amount) {
