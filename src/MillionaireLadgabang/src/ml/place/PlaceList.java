@@ -22,12 +22,12 @@ public class PlaceList {
         
         place.add(new Place("ครัวบะช่อ", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("จุด 3 จุด", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
-        place.add(new Place("โคเคชิ", false, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add(new Place("โคเคชิ", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("โคมริมน้ำ", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("Old Scool", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("a6", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
-        place.add(new Place("งานทะเบียน", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add(new Place("งานทะเบียน", false, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
         place.add(new Place("โกอิน ชาชัก", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("ลาวา", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
@@ -36,7 +36,7 @@ public class PlaceList {
         place.add(new Place("a12", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("a13", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
-        place.add(new Place("วีดปลูกศรัทธา", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add(new Place("วีดปลูกศรัทธา", false, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
         place.add(new Place("a15", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("หอดำ", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
@@ -45,7 +45,7 @@ public class PlaceList {
         place.add(new Place("a18", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("a19", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
-        place.add(new Place("วินเกกี 4", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
+        place.add(new Place("วินเกกี 4", false, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         
         place.add(new Place("E-bar", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("a22", true, new double[]{2e3, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));

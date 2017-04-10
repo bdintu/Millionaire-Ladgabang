@@ -43,8 +43,8 @@ public class Tester {
          * name = {"Durian", "E Ka"}; คือ Durian เล่นก่อน
          *
          * อันนี้ทำไม่ทัน ฝากทำต่อด้วยเน้ออออ อันนี้ทำไม่ทัน ฝากทำต่อด้วยเน้ออออ
-         * 
-         * หรือขี้เกียจ ก็ข้ามไปเลย 555 
+         *
+         * หรือขี้เกียจ ก็ข้ามไปเลย 555
          *
          */
         // เออ แล้วเอามายัดในนี้
@@ -88,7 +88,7 @@ public class Tester {
              * เช็คว่า turn ของใคร
              */
             int turn = player.getTurn();
-   
+
             /**
              * พิมพ์ข้อมูลส่วนตัววว
              */
@@ -146,13 +146,13 @@ public class Tester {
 
             System.out.println("ได้เดินไป : " + walk + "ช่อง");
             System.out.println("เดินไปตกช่องที่ : " + pos);
-            
+
             /**
              * พิมพ์ข้อมูลของช่องที่ตก
              */
             System.out.println("\tplace level : " + place.getPlace(pos).getName());
             System.out.println("\tplace level : " + place.getPlace(pos).getOwner());
-            System.out.println("\tplace level : " + place.getPlace(pos).getLevel());         
+            System.out.println("\tplace level : " + place.getPlace(pos).getLevel());
 
             /**
              * มาสู่อันที่เยอะที่สุดละะะ
@@ -166,25 +166,26 @@ public class Tester {
                     System.out.println("\tช่องนี้เป็นของตัวเอง");
 
                     // จะซื้อบ้าน เช็คว่าเวลตันยังง
-                    if(!place.getPlace(pos).isMaxLevel()){
+                    if (!place.getPlace(pos).isMaxLevel()) {
                         System.out.println("ช่องนี้ยังเวลไม่ตัน จะซื้อมายยย 1) ซื้อ 2) ไม่ซื้อ");
                         boolean is_buy = sn.nextBoolean();
-                        
+
                         // อันนี้ จะซื้อบ้าน / อัพเวลนะ
-                        if(is_buy){
+                        if (is_buy) {
                             System.out.println("ต้องการอัพเกตบ้านน");
                             System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าซื้อบ้านเวลต่อไปหรอไม่");
                             if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn))) {
                                 System.out.println("\t อัพเกตบ้านเรียบร้อยย");
                                 place.getPlace(pos).buyPlace(player.getPlayer(turn));
                             } else {
-                               System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
-                                break;
+                                System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
+                                player.getPlayer(turn).setLose();
                             }
                         }
                     }
-                } else {
-                    System.out.println("\tช่องนี้ไม่ใช้ของตัวเอง");
+
+                } else if (place.getPlace(pos).haveOwner()) {
+                    System.out.println("\tช่องนี้เป็นของคนอื่น");
 
                     System.out.println("สามารถใช้การ์ดได้");
                     /**
@@ -196,26 +197,56 @@ public class Tester {
                     if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
                         place.getPlace(pos).payToll(player.getPlayer(turn));
                         System.out.println("\tมีตังจ่ายยค่าปรับ จ่ายเรียบร้อยย");
+                        System.out.println("\tค่าผ่านทางเลเวลที่ : " + place.getPlace(pos).getLevel());
+                        System.out.println("\tเสียค่าผ่านทาง : " + place.getPlace(pos).getToll() + "หน่วยย");
 
                     } else {
                         System.out.println("\tไม่มีตังจ่ายยค่าปรับ ล้มละลายยยยย");
-                        break;
+                        player.getPlayer(turn).setLose();
                     }
 
-                    System.out.println("ในเมื่อไม่ใช่ของตัวเอง แล้วจ่ายค่าผ่านทางละ จะซื้อ/ซื้อต่ออะเป่าาาา");
-                    /**
-                     *
-                     * จะซื้อต่ออะเป่าาาา เดี่ยวมาทำเหมือนกันน เยอะไปละ
-                     *
-                     */
+                    System.out.println("จะซื้อต่ออะเป่าาาา");
+                    boolean is_buy = sn.nextBoolean();
+
+                    // อันนี้ จะซื้อบ้านต่อนะ
+                    if (is_buy) {
+                        System.out.println("ต้องการซื้อบ้านต่อ");
+                        System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าซื้อบ้านเวลต่อไปหรอไม่");
+                        if (place.getPlace(pos).canTakeOver(player.getPlayer(turn))) {
+                            System.out.println("\t อัพเกตบ้านเรียบร้อยย");
+                            place.getPlace(pos).TakeOver(player.getPlayer(turn));
+                        } else {
+                            System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
+                            player.getPlayer(turn).setLose();
+                        }
+                    }
+
+                } else {
+                    System.out.println("\tช่องนี้ไม่มีเจ้าของ");
+                    System.out.println("จะซื้อบ้านมายยย 1) ซื้อ 2) ไม่ซื้อ");
+                    boolean is_buy = sn.nextBoolean();
+
+                    // อันนี้ จะซื้อบ้าน
+                    if (is_buy) {
+                        System.out.println("ต้องการซื้อบ้านน");
+                        System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าซื้อบ้านหรือไม่");
+                        if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn))) {
+                            System.out.println("\t ซื้อบ้านเรียบร้อยย");
+                            place.getPlace(pos).buyPlace(player.getPlayer(turn));
+                        } else {
+                            System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
+                            player.getPlayer(turn).setLose();
+                        }
+                    }                    
                 }
                 player.nextTurn();
                 System.out.println("เชิญ เทรินต่อไป");
                 System.out.println("----------------------------------------");
             } else {
-                switch(pos){
+                System.out.println("\tช่องนี้ไม่สามารถซื้อบ้านได้");
+                switch (pos) {
                     case 0:
-                        //start
+                    //start
                 }
             }
         }

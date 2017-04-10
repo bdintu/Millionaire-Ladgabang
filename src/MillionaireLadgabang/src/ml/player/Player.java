@@ -9,12 +9,14 @@ public class Player {
     private int id;
     private int pos;
     private String name;
+    private boolean lose;
     private Money money;
     private ArrayList<Card> card;
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
+        this.lose = false;
         this.money = new Money();
         this.card = new ArrayList();
     }
@@ -23,19 +25,23 @@ public class Player {
         this.card.add(card);
     }
 
-    public boolean isLose() {
-        return !money.isMoney();
-    }
-
     public void setPos(int pos) {
         this.pos = pos;
     }
 
     public void addPos(int walk, Player player) {
-        if(pos + walk > amount_place){
+        if (pos + walk > amount_place) {
             player.getMoney().addMoneyPerRound();
         }
         this.pos = (pos + walk) % amount_place;
+    }
+
+    public void setLose() {
+        this.lose = true;
+    }
+
+    public boolean isLose() {
+        return lose;
     }
 
     public int getPos() {
