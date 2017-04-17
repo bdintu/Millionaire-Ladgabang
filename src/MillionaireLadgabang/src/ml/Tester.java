@@ -217,6 +217,8 @@ public class Tester {
                             if (place.getLanmark(index_lanmark).canBuyLandMark(player.getPlayer(turn))) {
                                 System.out.println("\t ซื้อแลน์มาร์เรียบร้อยย");
                                 place.getLanmark(index_lanmark).buyLanmark(player.getPlayer(turn));
+                                // เปลี่ยนราคาซะะ
+                                place.getLanmark(index_lanmark).changeToll(place);
                             } else {
                                 System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
                                 player.getPlayer(turn).setLose();

@@ -23,6 +23,10 @@ public class Place {
         this.price = price;
     }
 
+    public void setToll(int i, double amount) {
+        this.toll[i] = amount;
+    }
+
     public boolean canPayToll(Player player) {
         return player.getMoney().checkMoney(toll[level]);
     }
