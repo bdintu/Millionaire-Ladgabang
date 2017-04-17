@@ -310,7 +310,7 @@ public class Tester {
                         System.out.println("วินเกกี");
                         // ให้ผู้ใช้เลือกที่ต้องการจะไป
                         int select_pos = sn.nextInt();
-                        player.getPlayer(turn).setPos(select_pos);
+                        player.getPlayer(turn).setPos(select_pos, player.getPlayer(turn));
                         pos = player.getPlayer(turn).getPos();
                         break;
                     case 25:
