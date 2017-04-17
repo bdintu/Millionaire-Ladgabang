@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+import ml.card.Card;
 import ml.card.CardList;
+import ml.card.MovePos;
+import ml.card.PriceToll;
+import ml.card.SetPos;
+
 import ml.dice.DiceList;
 import ml.place.PlaceList;
 import ml.player.PlayerList;
@@ -147,7 +152,7 @@ public class Tester {
             /**
              * เดินไป walk ช่อง
              */
-            player.getPlayer(turn).addPos(walk, player.getPlayer(turn));
+            player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
             int pos = player.getPlayer(turn).getPos();
 
             System.out.println("เดินไปตกช่องที่ : " + pos);
@@ -194,24 +199,48 @@ public class Tester {
                 } else if (place.getPlace(pos).haveOwner()) {
                     System.out.println("\tช่องนี้เป็นของคนอื่น");
 
-                    System.out.println("สามารถใช้การ์ดได้");
-                    /**
-                     *
-                     * จะใช้การ์ดอะไรมั้ยยยย เดี่ยวมาทำเหมือนกันน เยอะไปละ
-                     *
-                     */
-                    System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าผ่านทางใหม");
-                    if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
-                        place.getPlace(pos).payToll(player.getPlayer(turn));
-                        System.out.println("\tมีตังจ่ายยค่าปรับ จ่ายเรียบร้อยย");
-                        System.out.println("\tค่าผ่านทางเลเวลที่ : " + place.getPlace(pos).getLevel());
-                        System.out.println("\tเสียค่าผ่านทาง : " + place.getPlace(pos).getToll() + "หน่วยย");
+                    // ตั้งไว้ว่าจ่ายค่าผ่านทางยั้งง
+                    boolean isPayToll = false;
 
-                    } else {
-                        System.out.println("\tไม่มีตังจ่ายยค่าปรับ ล้มละลายยยยย");
-                        player.getPlayer(turn).setLose();
-                        // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
-                        break;
+                    System.out.println("สามารถใช้การ์ดได้");
+                    System.out.println("มีการ์ดอยู่" + player.getPlayer(turn).getSizeCard() + " ใบ");
+
+                    for (int i = 0; i < player.getPlayer(turn).getSizeCard(); i++) {
+                        //จะใช้การ์ดอะไรมั้ยยยย
+                        System.out.println("ชื่อการ์ด" + player.getPlayer(turn).getCard(i).getName());
+                        System.out.println("รายละเอียด" + player.getPlayer(turn).getCard(i).getDetail());
+
+                        if (player.getPlayer(turn).getCard(i) instanceof PriceToll) {
+                            // อันนี้เป็นกการ์ดส่วนลดค่าผ่านทางงง
+                            isPayToll = true;
+                            // หลักกการคือ เพิ่มเงินให้ผู้เล่น 
+                            ((PriceToll) player.getPlayer(turn).getCard(i)).effect(player.getPlayer(turn), place.getPlace(pos));
+                            // เช็คก่อนว่ายังมีตังจ่ายค่าผ่านทางใหม
+                            if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                                place.getPlace(pos).payToll(player.getPlayer(turn));
+                            } else {
+                                System.out.println("\tส่วนลดไม่พอกะค่าปรับ ล้มละลายยยยย");
+                                player.getPlayer(turn).setLose();
+                                // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                                break;
+                            }
+                        }
+                    }
+
+                    if (isPayToll) {
+                        System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าผ่านทางใหม");
+                        if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                            place.getPlace(pos).payToll(player.getPlayer(turn));
+                            System.out.println("\tมีตังจ่ายยค่าปรับ จ่ายเรียบร้อยย");
+                            System.out.println("\tค่าผ่านทางเลเวลที่ : " + place.getPlace(pos).getLevel());
+                            System.out.println("\tเสียค่าผ่านทาง : " + place.getPlace(pos).getToll() + "หน่วยย");
+
+                        } else {
+                            System.out.println("\tไม่มีตังจ่ายยค่าปรับ ล้มละลายยยยย");
+                            player.getPlayer(turn).setLose();
+                            // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                            break;
+                        }
                     }
 
                     System.out.println("จะซื้อต่ออะเป่าาาา true) ซื้อ false) ไม่ซื้อ");
@@ -315,6 +344,21 @@ public class Tester {
                         break;
                     case 25:
                         System.out.println("การ์ด");
+                        Card rand_card = card.RandomCard();
+                        if (rand_card.isNow()) {
+                            // การ์นี้ใช้ทันที
+                            if (rand_card instanceof SetPos) {
+                                // การ์ด ย้ายไปตามที่กำหนดไว้
+                                ((SetPos) rand_card).effect(player.getPlayer(turn));
+                            }
+                            if (rand_card instanceof MovePos) {
+                                // การ์ด ย้ายไป x ช่องง
+                                ((MovePos) rand_card).effect(player.getPlayer(turn));
+                            }
+                        } else {
+                            // การ์ดนี้ต้องเก็บไว้ เพื่อใช้โอกาศหน้า
+                            player.getPlayer(turn).addCard(rand_card);
+                        }
                         break;
                 }
             }

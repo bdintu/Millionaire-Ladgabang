@@ -1,18 +1,15 @@
 package ml.card;
 
-import ml.player.Player;
-
-public class Card {
+public abstract class Card {
 
     private String name;
     private String detail;
+    private boolean now;
 
-    private double amount_money;
-    private int pos_place;
-
-    public Card(String name, String detail) {
+    public Card(String name, String detail, boolean now) {
         this.name = name;
         this.detail = detail;
+        this.now = now;
     }
 
     public String getName() {
@@ -23,19 +20,7 @@ public class Card {
         return detail;
     }
 
-    public double getMoney() {
-        return amount_money;
-    }
-
-    public void setMoney(double amount_money) {
-        this.amount_money = amount_money;
-    }
-
-    public int getPos() {
-        return pos_place;
-    }
-
-    public void setPos(int pos_place) {
-        this.pos_place = pos_place;
+    public boolean isNow() {
+        return now;
     }
 }

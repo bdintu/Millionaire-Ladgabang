@@ -25,6 +25,14 @@ public class Player {
         this.card.add(card);
     }
     
+    public Card getCard(int i){
+        return card.get(i);
+    }
+    
+    public int getSizeCard(){
+        return card.size();
+    }
+    
     private void addMoneyPerRound(int walk, Player player){
         if (pos + walk > amount_place) {
             player.getMoney().addMoneyPerRound();
@@ -36,7 +44,7 @@ public class Player {
         this.pos = pos;
     }
 
-    public void addPos(int walk, Player player) {
+    public void movePos(int walk, Player player) {
         addMoneyPerRound(walk, player);
         this.pos = (pos + walk) % amount_place;
     }

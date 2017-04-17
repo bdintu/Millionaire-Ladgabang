@@ -24,14 +24,10 @@ public class CardList {
     }
 
     private void createCard() {
-        card.add(new Card("ปรับตัง 100k", "เสียค่า 100k"));
-        card.get(0).setMoney(1e6);
-
-        card.add(new Card("ไปจุดเริ่มต้น", "ไปยังกลับจุดเริ่ต้น"));
-        card.get(1).setPos(0);
-
-        card.add(new Card("เดินไป 5 ช่อง", "เดินไป 5 ช่อง"));
-        card.get(2).setPos(0);
+        card.add(new SetPos("ไปจุดเริ่มต้น", "ไปยังกลับจุดเริ่ต้น", true, 0));
+        card.add(new MovePos("เดินไป 5 ช่อง", "เดินไป 5 ช่อง", true, 5));
+        card.add(new PriceToll("ฟรีค่าผ่านทาง", "", false, 1));
+        card.add(new PriceToll("เสียค่าผ่านทาง 50%", "", false, 0.5));
     }
 
     public int size() {
