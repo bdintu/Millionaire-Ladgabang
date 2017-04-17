@@ -9,7 +9,7 @@ public class PlaceList {
     public static int amount_place = 28;
 
     private ArrayList<Place> place;
-    private ArrayList<LandMark> lanmark;
+    private ArrayList<Landmark> lanmark;
 
     public PlaceList() {
         place = new ArrayList();
@@ -54,18 +54,40 @@ public class PlaceList {
         place.add(new Place("Coma", true, new double[]{-13e6, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("Bridge Bar", true, new double[]{-14e6, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
 
-        lanmark.add(new LandMark(new int[]{1, 2}, 7e4));
-        lanmark.add(new LandMark(new int[]{8, 9}, 7e4));
-        lanmark.add(new LandMark(new int[]{15, 16}, 7e4));
-        lanmark.add(new LandMark(new int[]{21, 22}, 7e4));
+        lanmark.add(new Landmark(new int[]{1, 2}, 7e4));
+        lanmark.add(new Landmark(new int[]{8, 9}, 7e4));
+        lanmark.add(new Landmark(new int[]{15, 16}, 7e4));
+        lanmark.add(new Landmark(new int[]{21, 22}, 7e4));
     }
 
     public Place getPlace(int i) {
         return place.get(i);
     }
 
-    public Place getPlace(Player player) {
-        return place.get(player.getId());
+    public Landmark getLanmark(int i) {
+        return lanmark.get(i);
+    }
+
+    public boolean isLanmark(int pos) {
+        for (int i = 0; i < lanmark.size(); ++i) {
+            for (int j = 0; j < lanmark.get(i).getIndexPlace().length; ++j) {
+                if (pos == lanmark.get(i).getIndexPlace()[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getIndexLanmark(int pos) {
+        for (int i = 0; i < lanmark.size(); ++i) {
+            for (int j = 0; j < lanmark.get(i).getIndexPlace().length; ++j) {
+                if (pos == lanmark.get(i).getIndexPlace()[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public int size() {

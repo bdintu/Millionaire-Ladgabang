@@ -70,8 +70,8 @@ public class Place {
         return name;
     }
 
-    public boolean isMaxLevel() {
-        return level == (amount_level - 1);
+    public boolean isNotMaxLevel() {
+        return level != (amount_level - 1);
     }
 
     public int getLevel() {

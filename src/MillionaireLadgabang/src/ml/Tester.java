@@ -74,6 +74,7 @@ public class Tester {
 
         // สร้างลูกเต๋า
         DiceList dice = new DiceList(player);
+
         // สร้างมินิเกมส์เป่ายิ่งฉุบ
         Paoyingshub paoyingshub = new Paoyingshub();
 
@@ -175,8 +176,8 @@ public class Tester {
                 if (place.getPlace(pos).isOwner(player.getPlayer(turn))) {
                     System.out.println("\tช่องนี้เป็นของตัวเอง");
 
-                    // จะซื้อบ้าน เช็คว่าเวลตันยังง
-                    if (!place.getPlace(pos).isMaxLevel()) {
+                    // จะซื้อบ้าน เช็คว่าเวลตันยังง    
+                    if (place.getPlace(pos).isNotMaxLevel()) {
                         System.out.println("ช่องนี้ยังเวลไม่ตัน จะซื้อมายยย true) ซื้อ false) ไม่ซื้อ");
                         boolean is_buy = sn.nextBoolean();
 
@@ -187,6 +188,35 @@ public class Tester {
                             if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn))) {
                                 System.out.println("\t อัพเกตบ้านเรียบร้อยย");
                                 place.getPlace(pos).buyPlace(player.getPlayer(turn));
+                            } else {
+                                System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
+                                player.getPlayer(turn).setLose();
+                                // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว
+                                break;
+                            }
+                        }
+                    } else if (place.isLanmark(pos)) {
+                        // เวลตันแล้ววว ซื้อแลนมาร์เถอะะะ
+
+                        int index_lanmark = place.getIndexLanmark(pos);
+
+                        // เช็คว่าเป็นเจ้าของทั้ง สอง ที่มะ
+                        if (place.getLanmark(index_lanmark).isOwner(place, player.getPlayer(turn))) {
+                        }
+
+                        // เช็คว่าเวลตัน ทั้งสองที่เหลือเปล่า
+                        if (place.getLanmark(index_lanmark).isMaxLevel(place, player.getPlayer(turn))) {
+                        }
+
+                        System.out.println("ช่องนี้ยังเวลตัน จะซื้อแลนมาร์คมายยย true) ซื้อ false) ไม่ซื้อ");
+                        boolean is_buy = sn.nextBoolean();
+
+                        if (is_buy) {
+                            System.out.println("ต้องการซื้อแลน์มาร์");
+                            System.out.println("เช็คก่อนว่ายังมีตังจ่ายค่าแลน์มาร์");
+                            if (place.getLanmark(index_lanmark).canBuyLandMark(player.getPlayer(turn))) {
+                                System.out.println("\t ซื้อแลน์มาร์เรียบร้อยย");
+                                place.getLanmark(index_lanmark).buyLanmark(player.getPlayer(turn));
                             } else {
                                 System.out.println("\tไม่มีตังจ่ายยอัพเกตบ้าน ล้มละลายยยยย");
                                 player.getPlayer(turn).setLose();
@@ -205,11 +235,13 @@ public class Tester {
                     System.out.println("สามารถใช้การ์ดได้");
                     System.out.println("มีการ์ดอยู่" + player.getPlayer(turn).getSizeCard() + " ใบ");
 
+                    // วนไปในการ์ดที่เราเก็บได้
                     for (int i = 0; i < player.getPlayer(turn).getSizeCard(); i++) {
                         //จะใช้การ์ดอะไรมั้ยยยย
                         System.out.println("ชื่อการ์ด" + player.getPlayer(turn).getCard(i).getName());
                         System.out.println("รายละเอียด" + player.getPlayer(turn).getCard(i).getDetail());
 
+                        // อันนี้เป็นการ์ด ลดค่าผ่านทาง/ฟรีค่าผ่านทาง
                         if (player.getPlayer(turn).getCard(i) instanceof PriceToll) {
                             // อันนี้เป็นกการ์ดส่วนลดค่าผ่านทางงง
                             isPayToll = true;
