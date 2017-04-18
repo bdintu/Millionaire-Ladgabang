@@ -3,7 +3,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files 
 *.class
 *.jar
 *.war
@@ -15,4 +15,3 @@ hs_err_pid*
 /src/MillionaireLadgabang/nbproject/private/
 /src/MillionaireLadgabang/build/
 /src/MillionaireLadgabang/dist/
-/src/MillionaireLadgabang-Model/
