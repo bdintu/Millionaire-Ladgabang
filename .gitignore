@@ -15,4 +15,5 @@ hs_err_pid*
 /src/MillionaireLadgabang/nbproject/private/
 /src/MillionaireLadgabang/build/
 /src/MillionaireLadgabang/dist/
-/src/MillionaireLadgabang/.metadata/
+/src/MillionaireLadgabang/bin/build/
+/src/MillionaireLadgabang/bin/nbproject/private/
