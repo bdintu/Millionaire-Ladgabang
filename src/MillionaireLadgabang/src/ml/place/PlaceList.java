@@ -1,4 +1,4 @@
-﻿package ml.place;
+package ml.place;
 
 import java.util.ArrayList;
 import ml.player.Player;
