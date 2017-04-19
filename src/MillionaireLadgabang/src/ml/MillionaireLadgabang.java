@@ -45,18 +45,36 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.geometry.Pos;
 import javax.swing.JFrame;
+import ml.card.CardList;
+import ml.dice.DiceList;
+import ml.place.PlaceList;
+import ml.player.PlayerList;
 
 public class MillionaireLadgabang extends Application {
 
-    ImageView bg_lobby = new ImageView("img/cover.png");
-    ImageView start1 = new ImageView("img/start.gif");
-   
     String[] name = new String[2];
+    PlayerList player;
 
-    double HEIGHT = 650.0;
-    double WIDTH = 1280.0;
+    Bord bord = new Bord();
+
+    // สร้างการ์ดมาก่อนน
+    CardList card = new CardList();
+
+    // สร้างสถานที่ตามมาา
+    PlaceList place = new PlaceList();
+
+    // สร้างลูกเต๋า
+    DiceList dice;
+
+    // สร้างมินิเกมส์เป่ายิ่งฉุบ
+    Paoyingshub paoyingshub = new Paoyingshub();
+
+    final int HEIGHT = 720;
+    final int WIDTH = 1280;
     Pane root = new Pane();
     Stage stage = new Stage();
+
+    ImageView chareter[] = new ImageView[2];
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -72,12 +90,15 @@ public class MillionaireLadgabang extends Application {
 
     Parent lobbyGame() throws Exception {
 
+        ImageView bg_lobby = new ImageView("img/cover.png");
+        ImageView start1 = new ImageView("img/start.gif");
+
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
         bg_lobby.setFitHeight(HEIGHT);
         bg_lobby.setFitWidth(WIDTH);
 
-        Button btn_start = makeButton(start1, 520, 420, 100, 200);
+        Button btn_start = makeButton(start1, 520, 480, 100, 200);
 
         btn_start.setOnMouseClicked((event) -> {
             try {
@@ -106,77 +127,105 @@ public class MillionaireLadgabang extends Application {
         cardcrow.setLayoutY(150);
         carddurian.setOnMouseClicked((event) -> {
             try {
-                name[0] = "durian";
-                 name[1] = "E Ka";
+                name[0] = "Durian";
+                name[1] = "E Ka";
                 stage.setScene(new Scene(Game()));
             } catch (Exception ex) {
                 Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }); 
+        });
         cardcrow.setOnMouseClicked((event) -> {
             try {
-                 name[0] = "E Ka";
-                 name[1] = "durian";
+                name[0] = "E Ka";
+                name[1] = "Durian";
                 stage.setScene(new Scene(Game()));
             } catch (Exception ex) {
                 Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }); 
-        /*Button btn_play = makeButton(bt_play1, bt_play2, 935, 130, 100, 240);
-        Button btn_htp = makeButton(bt_htp1, bt_htp2, 965, 268, 105, 465);
-        Button btn_CD = makeButton(bt_CD1, bt_CD2, 985, 430, 105, 265);
-        Button btn_EXIT = makeButton(bt_EXIT1, bt_EXIT2, 1000, 595, 80, 180);*/
-        root.getChildren().addAll(bg_mainmanu,carddurian,cardcrow);
+        });
+        root.getChildren().addAll(bg_mainmanu, carddurian, cardcrow);
         return root;
     }
-    Parent Game() throws Exception {
-    ImageView bg_game = new ImageView("img/bg_game.png");
-    ImageView chareter = new ImageView("img/ทุเรียน2rv.png");
-    ImageView chareter1 = new ImageView("img/อีกา1rv.png");
-    ImageView  status = new ImageView("img/c2r.png");
-    ImageView  status1 = new ImageView("img/d1b.png");
-    ImageView  money = new ImageView("img/เงิน.png");
-     ImageView  money1 = new ImageView("img/เงิน.png");
-    ImageView bottom = new ImageView("img/btn_1.png");
 
-    Pane root = new Pane();
+    final int AXIS_CHAR_START_X = 570;
+    final int AXIS_CHAR_START_Y = 540;
+    
+    final int AXIS_CHAR_LEFT_X = 0;
+    final int AXIS_CHAR_LEFT_Y = 200;
+
+    Parent Game() throws Exception {
+
+        player = new PlayerList(name);
+        dice = new DiceList(player);
+        bord.begin(player);
+
+        ImageView bg_game = new ImageView("img/bg_game.png");
+
+        if (name[0] == "Durian") {
+            chareter[0] = new ImageView("img/ทุเรียน2rv.png");
+            chareter[1] = new ImageView("img/อีกา1rv.png");
+        } else {
+            chareter[0] = new ImageView("img/อีกา1rv.png");
+            chareter[1] = new ImageView("img/ทุเรียน2rv.png");
+        }
+
+        ImageView status = new ImageView("img/c2r.png");
+        ImageView status1 = new ImageView("img/d1b.png");
+        ImageView money = new ImageView("img/เงิน.png");
+        ImageView money1 = new ImageView("img/เงิน.png");
+        ImageView bottomDice = new ImageView("img/btn_1.png");
+        ImageView bottomDiceHover = new ImageView("img/btn_2.png");
+
+        Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
         bg_game.setFitHeight(HEIGHT);
         bg_game.setFitWidth(WIDTH);
-        chareter.setLayoutX(axisCharStartX);
-        chareter.setLayoutY(axisCharStartY);
-        chareter.setFitHeight(100);
-        chareter.setFitWidth(100);
-        chareter1.setLayoutX(550);
-        chareter1.setLayoutY(500);
-        chareter1.setFitHeight(100);
-        chareter1.setFitWidth(100);
-        status.setLayoutX(0);
-        status.setLayoutY(0);
-        status.setFitHeight(75);
-        status.setFitWidth(350);
-        status1.setLayoutX(950);
-        status1.setLayoutY(575);
-        status1.setFitHeight(75);
-        status1.setFitWidth(350);
-        money.setLayoutX(20);
-        money.setLayoutY(35);
-        money.setFitHeight(150);
-        money.setFitWidth(250);
-        money1.setLayoutX(980);
-        money1.setLayoutY(425);
-        money1.setFitHeight(150);
-        money1.setFitWidth(250);
-        bottom.setLayoutX(570);
-        bottom.setLayoutY(340);
-        bottom.setFitHeight(150);
-        bottom.setFitWidth(150);
-        root.getChildren().addAll(bg_game,chareter,chareter1,status,status1,money,money1,bottom);
+
+        imgSetPos(chareter[0], AXIS_CHAR_START_X, AXIS_CHAR_START_Y, 100, 100);
+        imgSetPos(chareter[1], AXIS_CHAR_START_X + 40, AXIS_CHAR_START_Y + 10, 100, 100);
+        imgSetPos(status, 0, 0, 75, 350);
+        imgSetPos(status1, 950, 645, 75, 350);
+        imgSetPos(money, 20, 35, 150, 250);
+        imgSetPos(money1, 980, 505, 150, 250);
+        imgSetPos(bottomDice, 570, 340, 150, 150);
+        root.getChildren().addAll(bg_game, chareter[0], chareter[1], status, status1, money, money1, bottomDice);
+
+        int turn = player.getTurn();
+
+        bottomDice.setOnMouseClicked((event) -> {
+            try {
+                imgSetPos(bottomDiceHover, 570, 340, 150, 150);
+                root.getChildren().remove(bottomDice);
+                root.getChildren().add(bottomDiceHover);
+
+                int walk = dice.getStd(player.getPlayer(turn)).getPoints();
+
+                charSetPos(chareter[0], 6);
+                charSetPos(chareter[1], 6);
+
+            } catch (Exception ex) {
+                Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
         return root;
     }
-    
-    final int axisCharStartX = 615;
-    final int axisCharStartY = 500;
+
+    void charSetPos(ImageView img, int pos) {
+        int turn = player.getTurn();
+        if(turn==0){
+            imgSetPos(chareter[turn], AXIS_CHAR_LEFT_X, AXIS_CHAR_LEFT_Y, 100, 100);
+        } else {
+            imgSetPos(chareter[turn], AXIS_CHAR_LEFT_X+40, AXIS_CHAR_LEFT_Y+10, 100, 100);
+        }
+    }
+
+    void imgSetPos(ImageView img, int lX, int lY, int fX, int fY) {
+        img.setLayoutX(lX);
+        img.setLayoutY(lY);
+        img.setFitHeight(fX);
+        img.setFitWidth(fY);
+    }
 
     Button makeButton(ImageView image1, double positionX, double positionY, double sizeX, double sizeY) {
 
