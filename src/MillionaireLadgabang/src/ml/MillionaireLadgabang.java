@@ -49,6 +49,7 @@ import ml.card.CardList;
 import ml.dice.DiceList;
 import ml.place.PlaceList;
 import ml.player.PlayerList;
+import java.util.concurrent.TimeUnit;
 
 public class MillionaireLadgabang extends Application {
 
@@ -149,9 +150,15 @@ public class MillionaireLadgabang extends Application {
 
     final int AXIS_CHAR_START_X = 570;
     final int AXIS_CHAR_START_Y = 540;
-    
+
     final int AXIS_CHAR_LEFT_X = 0;
     final int AXIS_CHAR_LEFT_Y = 200;
+
+    final int AXIS_DELTA_X = (AXIS_CHAR_START_X - AXIS_CHAR_LEFT_X) / 7;
+    final int AXIS_DELTA_Y = (AXIS_CHAR_START_Y - AXIS_CHAR_LEFT_Y) / 7;
+
+    int posX[] = new int[2];
+    int posY[] = new int[2];
 
     Parent Game() throws Exception {
 
@@ -181,8 +188,13 @@ public class MillionaireLadgabang extends Application {
         bg_game.setFitHeight(HEIGHT);
         bg_game.setFitWidth(WIDTH);
 
-        imgSetPos(chareter[0], AXIS_CHAR_START_X, AXIS_CHAR_START_Y, 100, 100);
-        imgSetPos(chareter[1], AXIS_CHAR_START_X + 40, AXIS_CHAR_START_Y + 10, 100, 100);
+        posX[0] = AXIS_CHAR_START_X;
+        posY[0] = AXIS_CHAR_START_Y;
+        posX[1] = posX[0] + 40;
+        posY[1] = posY[0] + 10;
+
+        imgSetPos(chareter[0], posX[0], posY[0], 100, 100);
+        imgSetPos(chareter[1], posX[1], posY[1] + 10, 100, 100);
         imgSetPos(status, 0, 0, 75, 350);
         imgSetPos(status1, 950, 645, 75, 350);
         imgSetPos(money, 20, 35, 150, 250);
@@ -200,8 +212,10 @@ public class MillionaireLadgabang extends Application {
 
                 int walk = dice.getStd(player.getPlayer(turn)).getPoints();
 
-                charSetPos(chareter[0], 6);
-                charSetPos(chareter[1], 6);
+                charSetPos(chareter, walk);
+
+                root.getChildren().remove(bottomDiceHover);
+                root.getChildren().add(bottomDice);
 
             } catch (Exception ex) {
                 Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,12 +225,29 @@ public class MillionaireLadgabang extends Application {
         return root;
     }
 
-    void charSetPos(ImageView img, int pos) {
+    void charSetPos(ImageView[] img, int walk) throws InterruptedException {
         int turn = player.getTurn();
-        if(turn==0){
-            imgSetPos(chareter[turn], AXIS_CHAR_LEFT_X, AXIS_CHAR_LEFT_Y, 100, 100);
-        } else {
-            imgSetPos(chareter[turn], AXIS_CHAR_LEFT_X+40, AXIS_CHAR_LEFT_Y+10, 100, 100);
+        int pos = player.getPlayer(turn).getPos();
+        int tmpPos = pos;
+        while (pos <= tmpPos + walk) {
+            if (pos >= 0 && pos <= 7) {
+                posX[turn] -= AXIS_DELTA_X;
+                posY[turn] -= AXIS_DELTA_Y;
+            } else if (pos >= 8 && pos <= 14) {
+                posX[turn] += AXIS_DELTA_X;
+                posY[turn] -= AXIS_DELTA_X;
+            } else if (pos >= 15 && pos <= 21) {
+                posX[turn] += AXIS_DELTA_X;
+                posY[turn] += AXIS_DELTA_X;
+            } else {
+                posX[turn] -= AXIS_DELTA_X;
+                posY[turn] += AXIS_DELTA_X;               
+            }
+
+            imgSetPos(chareter[turn], posX[turn], posY[turn], 100, 100);
+            System.out.println(pos + " -> " + (tmpPos + walk));
+            ++pos;
+            //TimeUnit.SECONDS.sleep(1);
         }
     }
 
