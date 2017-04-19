@@ -154,8 +154,14 @@ public class MillionaireLadgabang extends Application {
     final int AXIS_CHAR_LEFT_X = 0;
     final int AXIS_CHAR_LEFT_Y = 200;
 
-    final int AXIS_DELTA_X = (AXIS_CHAR_START_X - AXIS_CHAR_LEFT_X) / 7;
-    final int AXIS_DELTA_Y = (AXIS_CHAR_START_Y - AXIS_CHAR_LEFT_Y) / 7;
+    final int AXIS_CHAR_TOP_X = 570;
+    final int AXIS_CHAR_TOP_Y = 0;
+
+    final int DIAGONAL_LEFT_X = (AXIS_CHAR_START_X - AXIS_CHAR_LEFT_X) / 7;
+    final int DIAGONAL_LEFT_Y = (AXIS_CHAR_START_Y - AXIS_CHAR_LEFT_Y) / 7;
+
+    final int DIAGONAL_RIGHT_X = (AXIS_CHAR_TOP_X - AXIS_CHAR_LEFT_X) / 7;
+    final int DIAGONAL_RIGHT_Y = (AXIS_CHAR_LEFT_Y - AXIS_CHAR_TOP_Y) / 7;
 
     int posX[] = new int[2];
     int posY[] = new int[2];
@@ -229,26 +235,33 @@ public class MillionaireLadgabang extends Application {
         int turn = player.getTurn();
         int pos = player.getPlayer(turn).getPos();
         int tmpPos = pos;
-        while (pos <= tmpPos + walk) {
-            if (pos >= 0 && pos <= 7) {
-                posX[turn] -= AXIS_DELTA_X;
-                posY[turn] -= AXIS_DELTA_Y;
-            } else if (pos >= 8 && pos <= 14) {
-                posX[turn] += AXIS_DELTA_X;
-                posY[turn] -= AXIS_DELTA_X;
-            } else if (pos >= 15 && pos <= 21) {
-                posX[turn] += AXIS_DELTA_X;
-                posY[turn] += AXIS_DELTA_X;
+        while (pos < tmpPos + walk) {
+            if (pos >= 0 && pos < 7) {
+                posX[turn] -= DIAGONAL_LEFT_X;
+                posY[turn] -= DIAGONAL_LEFT_Y;
+            } else if (pos >= 7 && pos < 14) {
+                posX[turn] += DIAGONAL_RIGHT_X;
+                posY[turn] -= DIAGONAL_RIGHT_Y;
+            } else if (pos >= 14 && pos < 21) {
+                posX[turn] += DIAGONAL_LEFT_X;
+                posY[turn] += DIAGONAL_LEFT_Y;
+            } else if (pos >= 21 && pos < 28) {
+                posX[turn] -= DIAGONAL_RIGHT_X;
+                posY[turn] += DIAGONAL_RIGHT_Y;
+            }
+            if (pos == 28) {
+                pos = 0;
             } else {
-                posX[turn] -= AXIS_DELTA_X;
-                posY[turn] += AXIS_DELTA_X;               
+                ++pos;
             }
 
             imgSetPos(chareter[turn], posX[turn], posY[turn], 100, 100);
-            System.out.println(pos + " -> " + (tmpPos + walk));
-            ++pos;
+            System.out.println(pos + " -> " + (tmpPos + walk) + ", pos: " + posX[turn] + ", " + posY[turn]);
+
             //TimeUnit.SECONDS.sleep(1);
         }
+        // อันนี้ให้ระบบรู้ว่า ย้ายไปช่องนี้ละ หลังเดินเสร็จ
+        player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
     }
 
     void imgSetPos(ImageView img, int lX, int lY, int fX, int fY) {
