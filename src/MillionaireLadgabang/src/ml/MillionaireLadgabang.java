@@ -188,6 +188,9 @@ public class MillionaireLadgabang extends Application {
         ImageView bottomDice = new ImageView("img/bord/btn_1.png");
         ImageView bottomDiceHover = new ImageView("img/bord/btn_2.png");
 
+        
+        Label label2 = new Label("Search");
+        
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
         bg_game.setFitHeight(HEIGHT);
@@ -205,13 +208,13 @@ public class MillionaireLadgabang extends Application {
         Util.imgSetPos(money, 20, 35, 150, 250);
         Util.imgSetPos(money1, 980, 505, 150, 250);
         Util.imgSetPos(bottomDice, 570, 340, 150, 150);
+        Util.imgSetPos(bottomDiceHover, 570, 340, 150, 150);
         root.getChildren().addAll(bg_game, chareter[0], chareter[1], status, status1, money, money1, bottomDice);
 
         int turn = player.getTurn();
 
         bottomDice.setOnMouseClicked((event) -> {
             try {
-                Util.imgSetPos(bottomDiceHover, 570, 340, 150, 150);
                 root.getChildren().remove(bottomDice);
                 root.getChildren().add(bottomDiceHover);
 
@@ -221,6 +224,8 @@ public class MillionaireLadgabang extends Application {
 
                 root.getChildren().remove(bottomDiceHover);
                 root.getChildren().add(bottomDice);
+                
+                //if()
 
             } catch (Exception ex) {
                 Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,7 +250,7 @@ public class MillionaireLadgabang extends Application {
         int currentPos = player.getPlayer(turn).getPos();
         int i = currentPos;
 
-        while (i != currentPos + walk) {
+        while (i != (currentPos + walk) % 28) {
 
             if (i >= 0 && i < 7) {
                 posX[turn] -= DIAGONAL_LEFT_X;
@@ -261,15 +266,15 @@ public class MillionaireLadgabang extends Application {
                 posY[turn] += DIAGONAL_RIGHT_Y;
             }
 
+            Util.imgSetPos(chareter[turn], posX[turn], posY[turn], 100, 100);
+
             if (i != 27) {
                 ++i;
             } else {
                 i = 0;
             }
 
-            Util.imgSetPos(chareter[turn], posX[turn], posY[turn], 100, 100);
             System.out.println(i + " -> " + (currentPos + walk) + ", pos: " + posX[turn] + ", " + posY[turn]);
-
             //TimeUnit.SECONDS.sleep(1);
         }
 
