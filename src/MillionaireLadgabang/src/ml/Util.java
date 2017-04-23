@@ -9,6 +9,10 @@ import java.util.Random;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 
 public class Util {
 
@@ -48,5 +52,35 @@ public class Util {
         br.close();
 
         return list;
+    }
+
+    public static void imgSetPos(ImageView img, int lX, int lY, int fX, int fY) {
+        img.setLayoutX(lX);
+        img.setLayoutY(lY);
+        img.setFitHeight(fX);
+        img.setFitWidth(fY);
+    }
+
+    public static Button makeButton(ImageView image1, double positionX, double positionY, double sizeX, double sizeY) {
+
+        image1.setFitHeight(sizeX);
+        image1.setFitWidth(sizeY);
+
+        Button button = new Button();
+        button.setGraphic(image1);
+        button.setLayoutX(positionX);
+        button.setLayoutY(positionY);
+
+        button.setBackground(Background.EMPTY);
+
+        button.setOnMouseEntered((MouseEvent e) -> {
+            button.setGraphic(image1);
+        });
+
+        button.setOnMouseExited((MouseEvent e) -> {
+            button.setGraphic(image1);
+        });
+
+        return button;
     }
 }
