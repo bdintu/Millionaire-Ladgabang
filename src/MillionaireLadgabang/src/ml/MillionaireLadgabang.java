@@ -76,7 +76,7 @@ public class MillionaireLadgabang extends Application {
         primaryStage.setScene(new Scene(first()));
         stage.setResizable(false);
         primaryStage.setTitle("Millionaire Ladgabang");
-        primaryStage.getIcons().add(new Image("img/cover.png"));
+        primaryStage.getIcons().add(new Image("img/bord/cover.png"));
         primaryStage.show();
     }
 
@@ -176,6 +176,175 @@ public class MillionaireLadgabang extends Application {
 
     Parent bord() throws Exception {
 
+        place_red[0][0] = new ImageView("img/place/1/red/a1.png");
+        place_red[0][1] = new ImageView("img/place/1/red/a2.png");
+        place_red[0][2] = new ImageView("img/place/1/red/a3.png");
+        place_red[0][3] = new ImageView("img/place/1/red/a4.png");
+        place_red[0][4] = new ImageView("img/place/1/red/a5.png");
+        place_red[0][5] = new ImageView("img/place/1/red/a6.png");
+        place_red[0][6] = new ImageView("img/place/1/red/a7.png");
+        place_red[0][7] = new ImageView("img/place/1/red/a8.png");
+        place_red[0][8] = new ImageView("img/place/1/red/a9.png");
+        place_red[0][9] = new ImageView("img/place/1/red/a10.png");
+        place_red[0][10] = new ImageView("img/place/1/red/a11.png");
+        place_red[0][11] = new ImageView("img/place/1/red/a12.png");
+        place_red[0][12] = new ImageView("img/place/1/red/a13.png");
+        place_red[0][13] = new ImageView("img/place/1/red/a14.png");
+        place_red[0][14] = new ImageView("img/place/1/red/a15.png");
+        place_red[0][15] = new ImageView("img/place/1/red/a16.png");
+        place_red[0][16] = new ImageView("img/place/1/red/a17.png");
+        place_red[0][17] = new ImageView("img/place/1/red/a18.png");
+        place_red[0][18] = new ImageView("img/place/1/red/a19.png");
+        place_red[0][19] = new ImageView("img/place/1/red/a20.png");
+        place_red[0][20] = new ImageView("img/place/1/red/a21.png");
+        place_red[1][0] = new ImageView("img/place/2/red/a1.png");
+        place_red[1][1] = new ImageView("img/place/2/red/a2.png");
+        place_red[1][2] = new ImageView("img/place/2/red/a3.png");
+        place_red[1][3] = new ImageView("img/place/2/red/a4.png");
+        place_red[1][4] = new ImageView("img/place/2/red/a5.png");
+        place_red[1][5] = new ImageView("img/place/2/red/a6.png");
+        place_red[1][6] = new ImageView("img/place/2/red/a7.png");
+        place_red[1][7] = new ImageView("img/place/2/red/a8.png");
+        place_red[1][8] = new ImageView("img/place/2/red/a9.png");
+        place_red[1][9] = new ImageView("img/place/2/red/a10.png");
+        place_red[1][10] = new ImageView("img/place/2/red/a11.png");
+        place_red[1][11] = new ImageView("img/place/2/red/a12.png");
+        place_red[1][12] = new ImageView("img/place/2/red/a13.png");
+        place_red[1][13] = new ImageView("img/place/2/red/a14.png");
+        place_red[1][14] = new ImageView("img/place/2/red/a15.png");
+        place_red[1][15] = new ImageView("img/place/2/red/a16.png");
+        place_red[1][16] = new ImageView("img/place/2/red/a17.png");
+        place_red[1][17] = new ImageView("img/place/2/red/a18.png");
+        place_red[1][18] = new ImageView("img/place/2/red/a19.png");
+        place_red[1][19] = new ImageView("img/place/2/red/a20.png");
+        place_red[1][20] = new ImageView("img/place/2/red/a21.png");
+        place_red[2][0] = new ImageView("img/place/3/red/a1.png");
+        place_red[2][1] = new ImageView("img/place/3/red/a2.png");
+        place_red[2][2] = new ImageView("img/place/3/red/a3.png");
+        place_red[2][3] = new ImageView("img/place/3/red/a4.png");
+        place_red[2][4] = new ImageView("img/place/3/red/a5.png");
+        place_red[2][5] = new ImageView("img/place/3/red/a6.png");
+        place_red[2][6] = new ImageView("img/place/3/red/a7.png");
+        place_red[2][7] = new ImageView("img/place/3/red/a8.png");
+        place_red[2][8] = new ImageView("img/place/3/red/a9.png");
+        place_red[2][9] = new ImageView("img/place/3/red/a10.png");
+        place_red[2][10] = new ImageView("img/place/3/red/a11.png");
+        place_red[2][11] = new ImageView("img/place/3/red/a12.png");
+        place_red[2][12] = new ImageView("img/place/3/red/a13.png");
+        place_red[2][13] = new ImageView("img/place/3/red/a14.png");
+        place_red[2][14] = new ImageView("img/place/3/red/a15.png");
+        place_red[2][15] = new ImageView("img/place/3/red/a16.png");
+        place_red[2][16] = new ImageView("img/place/3/red/a17.png");
+        place_red[2][17] = new ImageView("img/place/3/red/a18.png");
+        place_red[2][18] = new ImageView("img/place/3/red/a19.png");
+        place_red[2][19] = new ImageView("img/place/3/red/a20.png");
+        place_red[2][20] = new ImageView("img/place/3/red/a21.png");
+        place_red[3][0] = new ImageView("img/place/4/red/a1.png");
+        place_red[3][1] = new ImageView("img/place/4/red/a2.png");
+        place_red[3][2] = new ImageView("img/place/4/red/a3.png");
+        place_red[3][3] = new ImageView("img/place/4/red/a4.png");
+        place_red[3][4] = new ImageView("img/place/4/red/a5.png");
+        place_red[3][5] = new ImageView("img/place/4/red/a6.png");
+        place_red[3][6] = new ImageView("img/place/4/red/a7.png");
+        place_red[3][7] = new ImageView("img/place/4/red/a8.png");
+        place_red[3][8] = new ImageView("img/place/4/red/a9.png");
+        place_red[3][9] = new ImageView("img/place/4/red/a10.png");
+        place_red[3][10] = new ImageView("img/place/4/red/a11.png");
+        place_red[3][11] = new ImageView("img/place/4/red/a12.png");
+        place_red[3][12] = new ImageView("img/place/4/red/a13.png");
+        place_red[3][13] = new ImageView("img/place/4/red/a14.png");
+        place_red[3][14] = new ImageView("img/place/4/red/a15.png");
+        place_red[3][15] = new ImageView("img/place/4/red/a16.png");
+        place_red[3][16] = new ImageView("img/place/4/red/a17.png");
+        place_red[3][17] = new ImageView("img/place/4/red/a18.png");
+        place_red[3][18] = new ImageView("img/place/4/red/a19.png");
+        place_red[3][19] = new ImageView("img/place/4/red/a20.png");
+        place_red[3][20] = new ImageView("img/place/4/red/a21.png");
+        place_blue[0][0] = new ImageView("img/place/1/blue/a1.png");
+        place_blue[0][1] = new ImageView("img/place/1/blue/a2.png");
+        place_blue[0][2] = new ImageView("img/place/1/blue/a3.png");
+        place_blue[0][3] = new ImageView("img/place/1/blue/a4.png");
+        place_blue[0][4] = new ImageView("img/place/1/blue/a5.png");
+        place_blue[0][5] = new ImageView("img/place/1/blue/a6.png");
+        place_blue[0][6] = new ImageView("img/place/1/blue/a7.png");
+        place_blue[0][7] = new ImageView("img/place/1/blue/a8.png");
+        place_blue[0][8] = new ImageView("img/place/1/blue/a9.png");
+        place_blue[0][9] = new ImageView("img/place/1/blue/a10.png");
+        place_blue[0][10] = new ImageView("img/place/1/blue/a11.png");
+        place_blue[0][11] = new ImageView("img/place/1/blue/a12.png");
+        place_blue[0][12] = new ImageView("img/place/1/blue/a13.png");
+        place_blue[0][13] = new ImageView("img/place/1/blue/a14.png");
+        place_blue[0][14] = new ImageView("img/place/1/blue/a15.png");
+        place_blue[0][15] = new ImageView("img/place/1/blue/a16.png");
+        place_blue[0][16] = new ImageView("img/place/1/blue/a17.png");
+        place_blue[0][17] = new ImageView("img/place/1/blue/a18.png");
+        place_blue[0][18] = new ImageView("img/place/1/blue/a19.png");
+        place_blue[0][19] = new ImageView("img/place/1/blue/a20.png");
+        place_blue[0][20] = new ImageView("img/place/1/blue/a21.png");
+        place_blue[1][0] = new ImageView("img/place/2/blue/a1.png");
+        place_blue[1][1] = new ImageView("img/place/2/blue/a2.png");
+        place_blue[1][2] = new ImageView("img/place/2/blue/a3.png");
+        place_blue[1][3] = new ImageView("img/place/2/blue/a4.png");
+        place_blue[1][4] = new ImageView("img/place/2/blue/a5.png");
+        place_blue[1][5] = new ImageView("img/place/2/blue/a6.png");
+        place_blue[1][6] = new ImageView("img/place/2/blue/a7.png");
+        place_blue[1][7] = new ImageView("img/place/2/blue/a8.png");
+        place_blue[1][8] = new ImageView("img/place/2/blue/a9.png");
+        place_blue[1][9] = new ImageView("img/place/2/blue/a10.png");
+        place_blue[1][10] = new ImageView("img/place/2/blue/a11.png");
+        place_blue[1][11] = new ImageView("img/place/2/blue/a12.png");
+        place_blue[1][12] = new ImageView("img/place/2/blue/a13.png");
+        place_blue[1][13] = new ImageView("img/place/2/blue/a14.png");
+        place_blue[1][14] = new ImageView("img/place/2/blue/a15.png");
+        place_blue[1][15] = new ImageView("img/place/2/blue/a16.png");
+        place_blue[1][16] = new ImageView("img/place/2/blue/a17.png");
+        place_blue[1][17] = new ImageView("img/place/2/blue/a18.png");
+        place_blue[1][18] = new ImageView("img/place/2/blue/a19.png");
+        place_blue[1][19] = new ImageView("img/place/2/blue/a20.png");
+        place_blue[1][20] = new ImageView("img/place/2/blue/a21.png");
+        place_blue[2][0] = new ImageView("img/place/3/blue/a1.png");
+        place_blue[2][1] = new ImageView("img/place/3/blue/a2.png");
+        place_blue[2][2] = new ImageView("img/place/3/blue/a3.png");
+        place_blue[2][3] = new ImageView("img/place/3/blue/a4.png");
+        place_blue[2][4] = new ImageView("img/place/3/blue/a5.png");
+        place_blue[2][5] = new ImageView("img/place/3/blue/a6.png");
+        place_blue[2][6] = new ImageView("img/place/3/blue/a7.png");
+        place_blue[2][7] = new ImageView("img/place/3/blue/a8.png");
+        place_blue[2][8] = new ImageView("img/place/3/blue/a9.png");
+        place_blue[2][9] = new ImageView("img/place/3/blue/a10.png");
+        place_blue[2][10] = new ImageView("img/place/3/blue/a11.png");
+        place_blue[2][11] = new ImageView("img/place/3/blue/a12.png");
+        place_blue[2][12] = new ImageView("img/place/3/blue/a13.png");
+        place_blue[2][13] = new ImageView("img/place/3/blue/a14.png");
+        place_blue[2][14] = new ImageView("img/place/3/blue/a15.png");
+        place_blue[2][15] = new ImageView("img/place/3/blue/a16.png");
+        place_blue[2][16] = new ImageView("img/place/3/blue/a17.png");
+        place_blue[2][17] = new ImageView("img/place/3/blue/a18.png");
+        place_blue[2][18] = new ImageView("img/place/3/blue/a19.png");
+        place_blue[2][19] = new ImageView("img/place/3/blue/a20.png");
+        place_blue[2][20] = new ImageView("img/place/3/blue/a21.png");
+        place_blue[3][0] = new ImageView("img/place/4/blue/a1.png");
+        place_blue[3][1] = new ImageView("img/place/4/blue/a2.png");
+        place_blue[3][2] = new ImageView("img/place/4/blue/a3.png");
+        place_blue[3][3] = new ImageView("img/place/4/blue/a4.png");
+        place_blue[3][4] = new ImageView("img/place/4/blue/a5.png");
+        place_blue[3][5] = new ImageView("img/place/4/blue/a6.png");
+        place_blue[3][6] = new ImageView("img/place/4/blue/a7.png");
+        place_blue[3][7] = new ImageView("img/place/4/blue/a8.png");
+        place_blue[3][8] = new ImageView("img/place/4/blue/a9.png");
+        place_blue[3][9] = new ImageView("img/place/4/blue/a10.png");
+        place_blue[3][10] = new ImageView("img/place/4/blue/a11.png");
+        place_blue[3][11] = new ImageView("img/place/4/blue/a12.png");
+        place_blue[3][12] = new ImageView("img/place/4/blue/a13.png");
+        place_blue[3][13] = new ImageView("img/place/4/blue/a14.png");
+        place_blue[3][14] = new ImageView("img/place/4/blue/a15.png");
+        place_blue[3][15] = new ImageView("img/place/4/blue/a16.png");
+        place_blue[3][16] = new ImageView("img/place/4/blue/a17.png");
+        place_blue[3][17] = new ImageView("img/place/4/blue/a18.png");
+        place_blue[3][18] = new ImageView("img/place/4/blue/a19.png");
+        place_blue[3][19] = new ImageView("img/place/4/blue/a20.png");
+        place_blue[3][20] = new ImageView("img/place/4/blue/a21.png");
+
         player = new PlayerList(name);
         dice = new DiceList(player);
         bord.begin(player);
@@ -187,6 +356,15 @@ public class MillionaireLadgabang extends Application {
             chareter[0] = new ImageView("img/char/อีกา1rv.png");
             chareter[1] = new ImageView("img/char/ทุเรียน2rv.png");
         }
+
+        /*for (int i = 0; i < 4; ++i) {
+            place_red[i] = new ImageView[21];
+            place_blue[i] = new ImageView[21];
+            for (int j = 0; j < 21; ++j) {
+                place_red[i][j] = new ImageView("img/place/" + (i + 1) + "/red/" + (j + 1) + ".png");
+                place_blue[i][j] = new ImageView("img/place/" + (i + 1) + "/blue/" + (j + 1) + ".png");
+            }
+        }*/
 
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -282,6 +460,15 @@ public class MillionaireLadgabang extends Application {
     }
 
     ImageView chareter[] = new ImageView[2];
+    ImageView[][] place_red = new ImageView[4][21];
+    ImageView[][] place_blue = new ImageView[4][21];
+/*(    
+for i in range(0,4):
+	for j in range(0,21):
+		print "place_red["+str(i)+"]["+str(j)+"] = new ImageView(\"img/place/"+str(i+1)+"/red/a"+str(j+1)+".png\");"
+		print "place_blue["+str(i)+"]["+str(j)+"] = new ImageView(\"img/place/"+str(i+1)+"/blue/a"+str(j+1)+".png\");"    
+*/
+    
     ImageView bg_lobby = new ImageView("img/bord/cover.png");
     ImageView start1 = new ImageView("img/bord/start.gif");
     ImageView bg_mainmanu = new ImageView("img/bord/bg_mainmanu.gif");
@@ -294,13 +481,4 @@ public class MillionaireLadgabang extends Application {
     ImageView money1 = new ImageView("img/bord/เงิน.png");
     ImageView bottomDice = new ImageView("img/bord/btn_1.png");
     ImageView bottomDiceHover = new ImageView("img/bord/btn_2.png");
-    
-    ImageView[] place_red = new ImageView[4];
-    ImageView[] place_blue = new ImageView[4];
-    for(int i=0; i<4; ++i){
-        place_red[i] = new ImageView[27];
-        for(int j=0; j<=27; ++j){
-            chareter[i][j] = new ImageView("img/place/"+(i+1)+"/"+j+".png");
-        }
-    }
 }
