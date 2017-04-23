@@ -114,8 +114,8 @@ public class MillionaireLadgabang extends Application {
     Parent lobby() throws Exception {
 
         ImageView bg_mainmanu = new ImageView("img/bord/bg_mainmanu.gif");
-        ImageView carddurian = new ImageView("img/character/charcard_du.png");
-        ImageView cardcrow = new ImageView("img/character/charcard_crow.png");
+        ImageView carddurian = new ImageView("img/char/charcard_du.png");
+        ImageView cardcrow = new ImageView("img/char/charcard_crow.png");
 
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -174,11 +174,11 @@ public class MillionaireLadgabang extends Application {
         ImageView bg_game = new ImageView("img/bord/bg_game.png");
 
         if (name[0] == "Durian") {
-            chareter[0] = new ImageView("img/character/ทุเรียน2rv.png");
-            chareter[1] = new ImageView("img/character/อีกา1rv.png");
+            chareter[0] = new ImageView("img/char/ทุเรียน2rv.png");
+            chareter[1] = new ImageView("img/char/อีกา1rv.png");
         } else {
-            chareter[0] = new ImageView("img/character/อีกา1rv.png");
-            chareter[1] = new ImageView("img/character/ทุเรียน2rv.png");
+            chareter[0] = new ImageView("img/char/อีกา1rv.png");
+            chareter[1] = new ImageView("img/char/ทุเรียน2rv.png");
         }
 
         ImageView status = new ImageView("img/bord/c2r.png");
@@ -237,6 +237,17 @@ public class MillionaireLadgabang extends Application {
         });
 
         return root;
+    }
+    
+    int getPosX(int i){
+        switch(i){
+            case 0:
+                return 100;
+            case 1:
+                return 200;
+            default:
+                return 0;
+        }
     }
 
     void charSetPos(ImageView[] img, int walk) throws InterruptedException {
