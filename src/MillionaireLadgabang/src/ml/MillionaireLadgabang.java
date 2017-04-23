@@ -65,16 +65,10 @@ public class MillionaireLadgabang extends Application {
     PlayerList player;
 
     Bord bord = new Bord();
-
     CardList card = new CardList();
-
     PlaceList place = new PlaceList();
-
     DiceList dice;
-
     Paoyingshub paoyingshub = new Paoyingshub();
-
-    ImageView chareter[] = new ImageView[2];
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -87,9 +81,6 @@ public class MillionaireLadgabang extends Application {
     }
 
     Parent first() throws Exception {
-
-        ImageView bg_lobby = new ImageView("img/bord/cover.png");
-        ImageView start1 = new ImageView("img/bord/start.gif");
 
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -112,10 +103,6 @@ public class MillionaireLadgabang extends Application {
     }
 
     Parent lobby() throws Exception {
-
-        ImageView bg_mainmanu = new ImageView("img/bord/bg_mainmanu.gif");
-        ImageView carddurian = new ImageView("img/char/charcard_du.png");
-        ImageView cardcrow = new ImageView("img/char/charcard_crow.png");
 
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -165,13 +152,33 @@ public class MillionaireLadgabang extends Application {
     int posX[] = new int[2];
     int posY[] = new int[2];
 
+    int getPosX(int i) {
+        switch (i) {
+            case 0:
+                return 100;
+            case 1:
+                return 200;
+            default:
+                return 0;
+        }
+    }
+
+    int getPosY(int i) {
+        switch (i) {
+            case 0:
+                return 100;
+            case 1:
+                return 200;
+            default:
+                return 0;
+        }
+    }
+
     Parent bord() throws Exception {
 
         player = new PlayerList(name);
         dice = new DiceList(player);
         bord.begin(player);
-
-        ImageView bg_game = new ImageView("img/bord/bg_game.png");
 
         if (name[0] == "Durian") {
             chareter[0] = new ImageView("img/char/ทุเรียน2rv.png");
@@ -180,13 +187,6 @@ public class MillionaireLadgabang extends Application {
             chareter[0] = new ImageView("img/char/อีกา1rv.png");
             chareter[1] = new ImageView("img/char/ทุเรียน2rv.png");
         }
-
-        ImageView status = new ImageView("img/bord/c2r.png");
-        ImageView status1 = new ImageView("img/bord/d1b.png");
-        ImageView money = new ImageView("img/bord/เงิน.png");
-        ImageView money1 = new ImageView("img/bord/เงิน.png");
-        ImageView bottomDice = new ImageView("img/bord/btn_1.png");
-        ImageView bottomDiceHover = new ImageView("img/bord/btn_2.png");
 
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -238,17 +238,6 @@ public class MillionaireLadgabang extends Application {
 
         return root;
     }
-    
-    int getPosX(int i){
-        switch(i){
-            case 0:
-                return 100;
-            case 1:
-                return 200;
-            default:
-                return 0;
-        }
-    }
 
     void charSetPos(ImageView[] img, int walk) throws InterruptedException {
 
@@ -290,5 +279,28 @@ public class MillionaireLadgabang extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    ImageView chareter[] = new ImageView[2];
+    ImageView bg_lobby = new ImageView("img/bord/cover.png");
+    ImageView start1 = new ImageView("img/bord/start.gif");
+    ImageView bg_mainmanu = new ImageView("img/bord/bg_mainmanu.gif");
+    ImageView carddurian = new ImageView("img/char/charcard_du.png");
+    ImageView cardcrow = new ImageView("img/char/charcard_crow.png");
+    ImageView bg_game = new ImageView("img/bord/bg_game.png");
+    ImageView status = new ImageView("img/bord/c2r.png");
+    ImageView status1 = new ImageView("img/bord/d1b.png");
+    ImageView money = new ImageView("img/bord/เงิน.png");
+    ImageView money1 = new ImageView("img/bord/เงิน.png");
+    ImageView bottomDice = new ImageView("img/bord/btn_1.png");
+    ImageView bottomDiceHover = new ImageView("img/bord/btn_2.png");
+    
+    ImageView[] place_red = new ImageView[4];
+    ImageView[] place_blue = new ImageView[4];
+    for(int i=0; i<4; ++i){
+        place_red[i] = new ImageView[27];
+        for(int j=0; j<=27; ++j){
+            chareter[i][j] = new ImageView("img/place/"+(i+1)+"/"+j+".png");
+        }
     }
 }
