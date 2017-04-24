@@ -22,6 +22,10 @@ public class Place {
         this.toll = toll;
         this.price = price;
     }
+    
+    public void setToll(double amount) {
+        this.toll[current_level] = amount;
+    }    
 
     public void setToll(int i, double amount) {
         this.toll[i] = amount;

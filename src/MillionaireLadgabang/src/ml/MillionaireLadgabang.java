@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +45,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.geometry.Pos;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.paint.Color;
 
 import ml.card.CardList;
 import ml.dice.DiceList;
@@ -201,8 +205,8 @@ public class MillionaireLadgabang extends Application {
 
         Util.imgSetPos(chareter[0], posX[0], posY[0], 100, 100);
         Util.imgSetPos(chareter[1], posX[1], posY[1] + 10, 100, 100);
-        Util.imgSetPos(status, 0, 0, 75, 350);
-        Util.imgSetPos(status1, 950, 645, 75, 350);
+        Util.imgSetPos(status, 0, 0, 100, 300);
+        Util.imgSetPos(status1, 980, 620, 100, 300);
         Util.imgSetPos(money, 20, 35, 150, 250);
         Util.imgSetPos(money1, 980, 505, 150, 250);
         Util.imgSetPos(bottomDice, 570, 340, 150, 150);
@@ -211,11 +215,23 @@ public class MillionaireLadgabang extends Application {
         Util.imgSetPos(notBuy, 570, 300, 200, 200);
         root.getChildren().addAll(bg_game, chareter[0], chareter[1], status, status1, money, money1, bottomDice);
 
-        Label lblStatus = new Label("X's turn to play");
+        Text text = new Text();
+        Util.setText(text, 500, 250, 50, 0);
 
-        /*ImageView gg = new ImageView("img/place/" + 1 + "/red/a" + 1 + ".png");
-        root.getChildren().add(gg);
-        Util.imgSetPos(gg, 65, 285, 0, 0);*/
+        Text textDur = new Text();
+        Util.setText(textDur, 1110, 670, 20, 0);
+        textDur.setText("ทุเรียน");
+        Text textCrow = new Text();
+        Util.setText(textCrow, 140, 25, 20, 1);
+        textCrow.setText("อีกา");
+
+        Text moneyDur = new Text();
+        Util.setText(moneyDur, 1110, 705, 20, 0);
+        Text moneyCrow = new Text();
+        Util.setText(moneyCrow, 140, 55, 20, 1);
+
+        root.getChildren().addAll(text, textDur, textCrow, moneyDur, moneyCrow);
+
         bottomDice.setOnMouseClicked((event) -> {
             try {
                 Util.imgSetPos(bottomDiceHover, 570, 340, 150, 150);
@@ -223,6 +239,17 @@ public class MillionaireLadgabang extends Application {
                 root.getChildren().add(bottomDiceHover);
 
                 int turn = player.getTurn();
+
+                text.setText("ตาของ " + player.getPlayer(turn).getName());
+                if (name[0] == "Durian") {
+
+                    moneyDur.setText("เงิน " + String.format("%.2f", player.getPlayer(0).getMoney().getMoney() / 1e7) + "M");
+                    moneyCrow.setText("เงิน " + String.format("%.2f", player.getPlayer(1).getMoney().getMoney() / 1e7) + "M");
+                } else {
+                    moneyCrow.setText("เงิน " + String.format("%.2f", player.getPlayer(0).getMoney().getMoney() / 1e7) + "M");
+                    moneyDur.setText("เงิน " + String.format("%.2f", player.getPlayer(1).getMoney().getMoney() / 1e7) + "M");
+                }
+
                 int walk = dice.getStd(player.getPlayer(turn)).getPoints();
 
                 charSetPos(chareter, walk);
@@ -257,6 +284,7 @@ public class MillionaireLadgabang extends Application {
                     // สร้างได้ ไม่มีเจ้าของ
                 } else if (place.getPlace(pos).canBuild() && place.getPlace(pos).haveNotOwner()) {
                     if (place.getPlace(pos).isNotMaxLevel()) {
+                        System.out.println("fasf : " + pos);
                         int tmpDeep = coventPosToIndex(pos);
                         root.getChildren().add(deed[tmpDeep]);
 
@@ -296,35 +324,54 @@ public class MillionaireLadgabang extends Application {
                             break;
                         case 7:
                             System.out.println("สำนักทะเบียน");
-                            /**
-                             * อันนี้ให้ทำไรอะ รอ 2 ตา หรือรับตัง
-                             *
-                             * if
-                             * (place.getPlace(pos).canPayToll(player.getPlayer(turn)))
-                             * { System.out.println("\t จ่ายค่าทะเบียนเรียน
-                             * เรียบร้อยย");
-                             * place.getPlace(pos).payToll(player.getPlayer(turn));
-                             * } else {
-                             * System.out.println("\tไม่มีตังจ่ายยค่าทะเบียนเรียน
-                             * ล้มละลายยยยย"); player.getPlayer(turn).setLose();
-                             * // อย่าลืม break เดี่ยวแม่งวิ่งมั่ว break; }
-                             */
+                            text.setText("งดเดิน 3 รอบ");
+                            player.setWaitTurn();
+                            player.nextTurn();
                             break;
                         case 11:
                             System.out.println("การ์ด");
                             break;
                         case 14:
-                            System.out.println("วัดปลูก");
-                            /**
-                             * เลือกบ้านคูณ 2
-                             */
+                            text.setText("วัดปลูก");
+                            List<String> choices = new ArrayList<>();
+                            for (int i = 0; i < place.size(); ++i) {
+                                choices.add(i + ":" + place.getPlace(i).getName());
+                            }
+
+                            ChoiceDialog<String> dialog = new ChoiceDialog<>("1:Start", choices);
+                            dialog.setTitle("วัดปลูก");
+                            dialog.setHeaderText("เพิ่มค่าผ่านทางเป็น 2 เท่า\nถ้าคุณไม่ได้ดป็นเจ้าของ ฝ่ายตรงข้ามจะต้องถูกบังคับบริจารให้คุณ");
+                            dialog.setContentText("เลือกสถานที่ที่ต้องการเพิ่มค่าผ่านทาง");
+
+                            Optional<String> result = dialog.showAndWait();
+                            if (result.isPresent()) {
+                                System.out.println("Your choice: " + result.get() + result.get().charAt(0));
+                                pos = Character.getNumericValue((result.get().charAt(0)));
+                                place.getPlace(pos).setOwner(player.getPlayer(turn));
+                                place.getPlace(pos).setToll(place.getPlace(pos).getPrice()*2);
+                            }
+                            player.nextTurn();
                             break;
                         case 21:
                             System.out.println("วินเกกี");
-                            // ให้ผู้ใช้เลือกที่ต้องการจะไป
-                            /*int select_pos = sn.nextInt();
-                            player.getPlayer(turn).setPos(select_pos, player.getPlayer(turn));
-                            pos = player.getPlayer(turn).getPos();*/
+                            List<String> schoices = new ArrayList<>();
+                            for (int i = 0; i < place.size(); ++i) {
+                                schoices.add(i + ":" + place.getPlace(i).getName());
+                            }
+
+                            ChoiceDialog<String> sdialog = new ChoiceDialog<>("1:Start", schoices);
+                            sdialog.setTitle("วินเกกี");
+                            sdialog.setHeaderText("วินเกกี");
+                            sdialog.setContentText("เลือกสถานที่ต้องการจะไป");
+
+                            Optional<String> sresult = sdialog.showAndWait();
+                            if (sresult.isPresent()) {
+                                System.out.println("Your choice: " + sresult.get() + sresult.get().charAt(0));
+                                walk = (28 - player.getPlayer(turn).getPos() + Character.getNumericValue((sresult.get().charAt(0)))) % 28;
+                                charSetPos(chareter, walk);
+                                player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
+                            }
+                            player.nextTurn();
                             break;
                         case 25:
                             /*System.out.println("การ์ด");
@@ -354,6 +401,9 @@ public class MillionaireLadgabang extends Application {
 
         imgBuy.setOnMouseClicked((event) -> {
             try {
+
+                text.setText("เทคโอเวคสำเร็จ");
+
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int level = place.getPlace(pos).getLevel();
@@ -369,6 +419,7 @@ public class MillionaireLadgabang extends Application {
                             } else {
                                 Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
                             }
+
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -390,6 +441,7 @@ public class MillionaireLadgabang extends Application {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
                     }
+
                     root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
@@ -428,6 +480,9 @@ public class MillionaireLadgabang extends Application {
 
         buy[1].setOnMouseClicked((event) -> {
             try {
+
+                text.setText("ซื้อบ้านขนาดเล็กสำเร็จ");
+
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
@@ -471,6 +526,9 @@ public class MillionaireLadgabang extends Application {
 
         buy[2].setOnMouseClicked((event) -> {
             try {
+
+                text.setText("ซื้อบ้านขนาดกลางสำเร็จ");
+
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
@@ -513,6 +571,9 @@ public class MillionaireLadgabang extends Application {
 
         buy[3].setOnMouseClicked((event) -> {
             try {
+
+                text.setText("ซื้อบ้านขนาดใหญ่สำเร็จ");
+
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
@@ -556,6 +617,9 @@ public class MillionaireLadgabang extends Application {
 
         buy[4].setOnMouseClicked((event) -> {
             try {
+
+                text.setText("ซื้อแลนมาร์คสำเร็จ");
+
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
@@ -616,7 +680,6 @@ public class MillionaireLadgabang extends Application {
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
                 System.out.println(event.getSceneX());
                 System.out.println(event.getSceneY());
             }
@@ -698,6 +761,9 @@ public class MillionaireLadgabang extends Application {
     ImageView bottomDice = new ImageView("img/bord/btn_1.png");
     ImageView bottomDiceHover = new ImageView("img/bord/btn_2.png");
     ImageView imgLose = new ImageView("img/deed/lose.png");
+    ImageView reg = new ImageView("img/deed/reg.png");
+    ImageView mea = new ImageView("img/deed/mea.png");
+    ImageView exit = new ImageView("img/deed/exit.png");
 
     ImageView askTake = new ImageView("img/deed/ask_take.png");
     ImageView imgBuy = new ImageView("img/deed/buy.png");

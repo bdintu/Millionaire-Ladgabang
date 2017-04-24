@@ -29,7 +29,7 @@ public class Bord {
 
         int amount_loser = 0;
         for (int i = 0; i < player.size(); ++i) {
-            if (player.getPlayer(i).isLose()) {
+            if (player.getPlayer(i).isLose() || player.getPlayer(i).getMoney().getMoney() <= 1e6 ) {
                 ++amount_loser;
             }
         }

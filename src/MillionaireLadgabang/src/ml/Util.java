@@ -13,6 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class Util {
 
@@ -59,6 +64,19 @@ public class Util {
         img.setLayoutY(lY);
         img.setFitHeight(fX);
         img.setFitWidth(fY);
+    }
+
+    public static void setText(Text text, int x, int y, int size, int color) {
+        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, size));
+        text.setX(x);
+        text.setY(y);
+        if (color == 0) {
+            text.setStroke(Color.BLUE);
+        } else if (color == 1) {
+            text.setStroke(Color.RED);
+        }
+        text.setFill(Color.BROWN);
+        text.setStrokeWidth(2);
     }
 
     public static Button makeButton(ImageView image1, double positionX, double positionY, double sizeX, double sizeY) {

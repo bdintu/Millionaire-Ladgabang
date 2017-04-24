@@ -7,11 +7,13 @@ public class PlayerList {
 
     private int amount_player;
     private int turn_player;
+    private int waitTurn;
     private ArrayList<Player> player;
 
     public PlayerList(String[] name) throws NoSuchAlgorithmException {
         this.amount_player = name.length;
         this.turn_player = 0;
+        this.waitTurn = 0;
         this.player = new ArrayList();
         createPlayer(name);
     }
@@ -27,6 +29,15 @@ public class PlayerList {
     }
 
     public void nextTurn() {
+        if (waitTurn == 0) {
+            this.turn_player = (turn_player + 1) % amount_player;
+        } else {
+            --waitTurn;
+        }
+    }
+
+    public void setWaitTurn() {
+        this.waitTurn = 3;
         this.turn_player = (turn_player + 1) % amount_player;
     }
 
