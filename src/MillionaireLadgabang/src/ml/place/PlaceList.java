@@ -54,10 +54,10 @@ public class PlaceList {
         place.add(new Place("Coma", true, new double[]{-13e6, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
         place.add(new Place("Bridge Bar", true, new double[]{-14e6, 3e3, 5e3}, new double[]{2e3, 3e3, 5e3}));
 
-        lanmark.add(new Landmark(new int[]{1, 2}, 7e4));
+        /*lanmark.add(new Landmark(new int[]{1, 2}, 7e4));
         lanmark.add(new Landmark(new int[]{8, 9}, 7e4));
         lanmark.add(new Landmark(new int[]{15, 16}, 7e4));
-        lanmark.add(new Landmark(new int[]{21, 22}, 7e4));
+        lanmark.add(new Landmark(new int[]{21, 22}, 7e4));*/
     }
 
     public Place getPlace(int i) {
