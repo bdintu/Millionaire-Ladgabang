@@ -1,20 +1,16 @@
-/**
- * -Xmx
- */
 package ml;
 
-import java.io.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -47,17 +43,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.geometry.Pos;
-import javax.swing.JFrame;
-import java.util.concurrent.TimeUnit;
 
 import ml.card.CardList;
 import ml.dice.DiceList;
 import ml.place.PlaceList;
 import ml.player.PlayerList;
 import ml.Util;
-import ml.card.Card;
-import ml.card.MovePos;
-import ml.card.SetPos;
 
 public class MillionaireLadgabang extends Application {
 
@@ -160,7 +151,7 @@ public class MillionaireLadgabang extends Application {
     int posY[] = new int[2];
 
     int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18,}, {19, 26}, {20, 27}};
-    int posImg[][] = {{568, 605}, {475, 550}, {393, 497}, {313, 446}, {229, 391}, {147, 338}, {65, 285},{13,257},{97,214},{182,184},{263,146},{344,108},{415,70},{493,37},{570,5},{640,45},{715,85},{790,127},{867,170},{947,213},{1027,256},{1110,305},{1040,347},{965,386},{890,433},{805,475},{732,520},{643,557}};
+    int posImg[][] = {{568, 605}, {475, 550}, {393, 497}, {313, 446}, {229, 391}, {147, 338}, {65, 285}, {13, 257}, {97, 214}, {182, 184}, {263, 146}, {344, 108}, {415, 70}, {493, 37}, {570, 5}, {640, 45}, {715, 85}, {790, 127}, {867, 170}, {947, 213}, {1027, 256}, {1110, 305}, {1040, 347}, {965, 386}, {890, 433}, {805, 475}, {732, 520}, {643, 557}};
 
     int coventIndexToPos(int s) {
         for (int i = 0; i < 21; ++i) {
@@ -194,8 +185,8 @@ public class MillionaireLadgabang extends Application {
         } else {
             chareter[0] = new ImageView("img/char/อีกา1rv.png");
             chareter[1] = new ImageView("img/char/ทุเรียน2rv.png");
-            char_winner[0] = new ImageView("img/bord/crow_b.png");
-            char_winner[1] = new ImageView("img/bord/du_r.png");
+            char_winner[0] = new ImageView("img/bord/crow_r.png");
+            char_winner[1] = new ImageView("img/bord/du_b.png");
         }
 
         Pane root = new Pane();
@@ -222,10 +213,9 @@ public class MillionaireLadgabang extends Application {
 
         Label lblStatus = new Label("X's turn to play");
 
-        ImageView gg = new ImageView("img/place/" + 1 + "/red/a" + 1 + ".png");
+        /*ImageView gg = new ImageView("img/place/" + 1 + "/red/a" + 1 + ".png");
         root.getChildren().add(gg);
-        Util.imgSetPos(gg, 65, 285, 0, 0);
-
+        Util.imgSetPos(gg, 65, 285, 0, 0);*/
         bottomDice.setOnMouseClicked((event) -> {
             try {
                 Util.imgSetPos(bottomDiceHover, 570, 340, 150, 150);
@@ -244,12 +234,19 @@ public class MillionaireLadgabang extends Application {
                 root.getChildren().remove(bottomDiceHover);
                 root.getChildren().add(bottomDice);
 
-                // สร้างได้ มีเจ้าของที่ไม่ใช่เรา
+                // สร้างได้ เป็นของคนอื่น
                 if (place.getPlace(pos).canBuild() && place.getPlace(pos).haveOwner() && place.getPlace(pos).isNotOwner(player.getPlayer(turn))) {
 
                     if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
                         //root.getChildren().add(payToll);
                     } else {
+                        if (turn == 0) {
+                            Util.imgSetPos(char_winner[1], 0, 0, 0, 0);
+                            root.getChildren().add(char_winner[1]);
+                        } else if (turn == 1) {
+                            Util.imgSetPos(char_winner[0], 0, 0, 0, 0);
+                            root.getChildren().add(char_winner[0]);
+                        }
                         player.getPlayer(turn).setLose();
                     }
 
@@ -263,11 +260,17 @@ public class MillionaireLadgabang extends Application {
                         int tmpDeep = coventPosToIndex(pos);
                         root.getChildren().add(deed[tmpDeep]);
 
+                        int check = 0;
                         int level = place.getPlace(pos).getLevel();
                         for (int i = level; i <= 4; ++i) {
                             if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn), level)) {
+                                ++check;
                                 root.getChildren().add(buy[i]);
                             }
+                        }
+
+                        if (check == 0) {
+                            root.getChildren().remove(deed[tmpDeep]);
                         }
                     }
                     // จุดพิเศษ
@@ -355,6 +358,41 @@ public class MillionaireLadgabang extends Application {
                 int pos = player.getPlayer(turn).getPos();
                 int level = place.getPlace(pos).getLevel();
                 place.getPlace(pos).TakeOver(player.getPlayer(turn));
+
+                int tmpPos = coventPosToIndex(pos);
+                if (turn == 0) {
+                    if (place_red[level][tmpPos] == null) {
+                        try {
+                            place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
+                            if (level == 3) {
+                                Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                            } else {
+                                Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
+                        }
+                    }
+
+                    root.getChildren().add(place_red[level][tmpPos]);
+
+                } else if (turn == 1) {
+                    if (place_red[level][tmpPos] == null) {
+                        try {
+                            place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
+                            if (level == 3) {
+                                Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                            } else {
+                                Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            }
+
+                        } catch (Exception ex) {
+                            System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
+                        }
+                    }
+                    root.getChildren().add(place_blue[level][tmpPos]);
+                }
+
                 root.getChildren().removeAll(askTake, imgBuy, notBuy);
                 player.nextTurn();
             } catch (Exception ex) {
@@ -393,9 +431,9 @@ public class MillionaireLadgabang extends Application {
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
-                place.getPlace(pos).buyPlace(player.getPlayer(turn), 0);
+                int level = 0;
+                place.getPlace(pos).buyPlace(player.getPlayer(turn), level);
 
-                int level = place.getPlace(pos).getLevel();
                 if (turn == 0) {
                     if (place_red[level][tmpPos] == null) {
                         try {
@@ -420,8 +458,7 @@ public class MillionaireLadgabang extends Application {
                     root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
-                root.getChildren().remove(buy[0]);
-                for (int i = level; i <= 4; ++i) {
+                for (int i = 0; i <= 4; ++i) {
                     root.getChildren().remove(buy[i]);
                 }
 
@@ -437,9 +474,9 @@ public class MillionaireLadgabang extends Application {
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
-                place.getPlace(pos).buyPlace(player.getPlayer(turn), 1);
+                int level = 1;
+                place.getPlace(pos).buyPlace(player.getPlayer(turn), level);
 
-                int level = place.getPlace(pos).getLevel();
                 if (turn == 0) {
                     if (place_red[level][tmpPos] == null) {
                         try {
@@ -464,8 +501,7 @@ public class MillionaireLadgabang extends Application {
                     root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
-                root.getChildren().remove(buy[0]);
-                for (int i = level; i <= 4; ++i) {
+                for (int i = 0; i <= 4; ++i) {
                     root.getChildren().remove(buy[i]);
                 }
                 root.getChildren().remove(deed[tmpPos]);
@@ -480,9 +516,9 @@ public class MillionaireLadgabang extends Application {
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
-                place.getPlace(pos).buyPlace(player.getPlayer(turn), 2);
+                int level = 2;
+                place.getPlace(pos).buyPlace(player.getPlayer(turn), level);
 
-                int level = place.getPlace(pos).getLevel();
                 if (turn == 0) {
                     if (place_red[level][tmpPos] == null) {
                         try {
@@ -507,8 +543,7 @@ public class MillionaireLadgabang extends Application {
                     root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
-                root.getChildren().remove(buy[0]);
-                for (int i = level; i <= 4; ++i) {
+                for (int i = 0; i <= 4; ++i) {
                     root.getChildren().remove(buy[i]);
                 }
 
@@ -524,14 +559,14 @@ public class MillionaireLadgabang extends Application {
                 int turn = player.getTurn();
                 int pos = player.getPlayer(turn).getPos();
                 int tmpPos = coventPosToIndex(pos);
-                place.getPlace(pos).buyPlace(player.getPlayer(turn), 3);
+                int level = 3;
+                place.getPlace(pos).buyPlace(player.getPlayer(turn), level);
 
-                int level = place.getPlace(pos).getLevel();
                 if (turn == 0) {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -543,7 +578,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -551,13 +586,28 @@ public class MillionaireLadgabang extends Application {
                     root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
-                root.getChildren().remove(buy[0]);
-                for (int i = level; i <= 4; ++i) {
+                for (int i = 0; i <= 4; ++i) {
                     root.getChildren().remove(buy[i]);
                 }
 
                 root.getChildren().remove(deed[tmpPos]);
                 player.nextTurn();
+            } catch (Exception ex) {
+                Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        char_winner[0].setOnMouseClicked((event) -> {
+            try {
+                stage.setScene(new Scene(first()));
+            } catch (Exception ex) {
+                Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        char_winner[1].setOnMouseClicked((event) -> {
+            try {
+                stage.setScene(new Scene(first()));
             } catch (Exception ex) {
                 Logger.getLogger(MillionaireLadgabang.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -615,29 +665,13 @@ public class MillionaireLadgabang extends Application {
 
         for (int i = 0; i < 21; ++i) {
             deed[i] = new ImageView("img/deed/" + (i + 1) + ".png");
-            Util.imgSetPos(deed[i], 400, 200, 200, 400);
+            Util.imgSetPos(deed[i], 500, 200, 300, 300);
         }
 
         for (int i = 0; i < 5; ++i) {
             buy[i] = new ImageView("img/deed/b" + i + ".png");
-            Util.imgSetPos(buy[i], 400, 200, 200, 400);
+            Util.imgSetPos(buy[i], 500, 200, 300, 300);
         }
-
-        /*for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 21; ++j) {
-                place_red[i][j] = new ImageView("img/place/" + (i + 1) + "/red/a" + (j + 1) + ".png");
-                place_blue[i][j] = new ImageView("img/place/" + (i + 1) + "/blue/a" + (j + 1) + ".png");
-                Util.imgSetPos(place_red[i], 500, 500, 150, 400);
-                Util.imgSetPos(place_blue[i], 500, 500, 150, 400);
-            }
-        }*/
-
- /*
-        for i in range(0,4):
-                for j in range(0,21):
-                        print "place_red["+str(i)+"]["+str(j)+"] = new ImageView(\"img/place/"+str(i+1)+"/red/a"+str(j+1)+".png\");"
-                        print "place_blue["+str(i)+"]["+str(j)+"] = new ImageView(\"img/place/"+str(i+1)+"/blue/a"+str(j+1)+".png\");"    
-         */
     }
 
     public static void main(String[] args) {

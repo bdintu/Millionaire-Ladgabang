@@ -56,7 +56,7 @@ public class Place {
     public void buyPlace(Player player, int level) {
         setOwner(player);
         player.getMoney().addMoney(price[level]);
-        ++current_level;
+        this.current_level = level;
     }
 
     public double getPrice() {
