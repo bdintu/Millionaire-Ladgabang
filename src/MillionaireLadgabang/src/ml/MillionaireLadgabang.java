@@ -306,21 +306,32 @@ public class MillionaireLadgabang extends Application {
                     switch (pos) {
                         // นับช่อง start เป็น 0 จนถึงช่องที่ 27 เป็นช่องสุดท้าย
                         case 0:
+                            text.setText("จุดเริ่มต้น");
                             break;
                         case 3:
-                            /*System.out.println("มินิเกมส์");
-                        System.out.println("คุณเลือก 0)scissor 1)rock 2)paper 3)ไม่เลือก");
-                        int select = sn.nextInt();
-                        **
-                         * อันนี้ ตามที่คุยไว่ ว่ามันจะล็อครอบที่ชนะเลยยย
-                         *
-                         *
-                        System.out.println("จำนวนรอบที่ล็อคให้ชนะ" + paoyingshub.getRandomRound());
-                        while (paoyingshub.play(player.getPlayer(turn), select)) {
-                            // อันนี้ผู้ใช้ออกอะไร ก็ให้ใส่ภาพตามที่ผู้ใช้เลือก
-                            System.out.println("Dice Chalenge game : You win");
-                        }
-                        paoyingshub.reSet();*/
+                            text.setText("เสี่ยงดวง");
+                            List<String> ychoices = new ArrayList<>();
+                            ychoices.add("1:คู่");
+                            ychoices.add("2:คี่");
+
+                            ChoiceDialog<String> ydialog = new ChoiceDialog<>("1:คู่", ychoices);
+                            ydialog.setTitle("เสี่ยงดวง");
+                            ydialog.setHeaderText("คุณจะมีโอกาศ หากคุณสามารถทายคู่คี่ถูก");
+                            ydialog.setContentText("เลือก ");
+
+                            Optional<String> yresult = ydialog.showAndWait();
+                            if (yresult.isPresent()) {
+                                System.out.println("Your choice: " + yresult.get() + yresult.get().charAt(0));
+                                int ran = Util.randomInt(0, 1);
+                                int shoud = Character.getNumericValue((yresult.get().charAt(0)));
+                                if (ran == shoud) {
+                                    text.setText("คุณได้เงินเพิ่ม 1M");
+                                    player.getPlayer(turn).getMoney().addMoney(1e7);
+                                } else {
+                                    text.setText("ไม่เป็นไร คราวหน้าเอาใหม่");
+                                }
+                            }
+                            player.nextTurn();
                             break;
                         case 7:
                             System.out.println("สำนักทะเบียน");
@@ -329,13 +340,19 @@ public class MillionaireLadgabang extends Application {
                             player.nextTurn();
                             break;
                         case 11:
-                            System.out.println("การ์ด");
+                            text.setText("สุ่มตาเดินให้คุณเอง");
+                            walk = Util.randomInt(0, 12);
+                            charSetPos(chareter, walk);
+                            player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
+                            player.nextTurn();
                             break;
                         case 14:
                             text.setText("วัดปลูก");
                             List<String> choices = new ArrayList<>();
                             for (int i = 0; i < place.size(); ++i) {
-                                choices.add(i + ":" + place.getPlace(i).getName());
+                                if (place.getPlace(i).isOwner(player.getPlayer(turn))) {
+                                    choices.add(i + ":" + place.getPlace(i).getName());
+                                }
                             }
 
                             ChoiceDialog<String> dialog = new ChoiceDialog<>("1:Start", choices);
@@ -348,7 +365,7 @@ public class MillionaireLadgabang extends Application {
                                 System.out.println("Your choice: " + result.get() + result.get().charAt(0));
                                 pos = Character.getNumericValue((result.get().charAt(0)));
                                 place.getPlace(pos).setOwner(player.getPlayer(turn));
-                                place.getPlace(pos).setToll(place.getPlace(pos).getPrice()*2);
+                                place.getPlace(pos).setToll(place.getPlace(pos).getPrice() * 2);
                             }
                             player.nextTurn();
                             break;
@@ -374,22 +391,11 @@ public class MillionaireLadgabang extends Application {
                             player.nextTurn();
                             break;
                         case 25:
-                            /*System.out.println("การ์ด");
-                        Card rand_card = card.RandomCard();
-                        if (rand_card.isNow()) {
-                            // การ์นี้ใช้ทันที
-                            if (rand_card instanceof SetPos) {
-                                // การ์ด ย้ายไปตามที่กำหนดไว้
-                                ((SetPos) rand_card).effect(player.getPlayer(turn));
-                            }
-                            if (rand_card instanceof MovePos) {
-                                // การ์ด ย้ายไป x ช่องง
-                                ((MovePos) rand_card).effect(player.getPlayer(turn));
-                            }
-                        } else {
-                            // การ์ดนี้ต้องเก็บไว้ เพื่อใช้โอกาศหน้า
-                            player.getPlayer(turn).addCard(rand_card);
-                        }*/
+                            text.setText("สุ่มตาเดินให้ฝ่ายตรงข้าม");
+                            player.nextTurn();
+                            walk = Util.randomInt(0, 12);
+                            charSetPos(chareter, walk);
+                            player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
                             break;
                     }
                 }
