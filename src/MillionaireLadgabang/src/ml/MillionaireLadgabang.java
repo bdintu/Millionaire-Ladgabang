@@ -155,8 +155,7 @@ public class MillionaireLadgabang extends Application {
     int posY[] = new int[2];
 
     int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18,}, {19, 26}, {20, 27}};
-    int posImg[][] = {{568, 605}, {475, 550}, {393, 497}, {313, 446}, {229, 391}, {147, 338}, {65, 285}, {13, 257}, {97, 214}, {182, 184}, {263, 146}, {344, 108}, {415, 70}, {493, 37}, {570, 5}, {640, 45}, {715, 85}, {790, 127}, {867, 170}, {947, 213}, {1027, 256}, {1110, 305}, {1040, 347}, {965, 386}, {890, 433}, {805, 475}, {732, 520}, {643, 557}};
-
+    int posImg[][] = {{568, 565}, {475, 510}, {393, 457}, {313, 406}, {229, 351}, {147, 298}, {65, 245}, {13, 217}, {97, 164}, {182, 144}, {263, 106}, {344, 68}, {415, 30}, {493, 0}, {570, 5}, {640, 5}, {715, 45}, {790, 87}, {867, 130}, {947, 173}, {1027, 216}, {1110, 265}, {1040, 307}, {965, 346}, {890, 393}, {805, 435}, {732, 480}, {643, 517}};
     int coventIndexToPos(int s) {
         for (int i = 0; i < 21; ++i) {
             if (s == indexImg[i][0]) {
@@ -216,7 +215,7 @@ public class MillionaireLadgabang extends Application {
         root.getChildren().addAll(bg_game, chareter[0], chareter[1], status, status1, money, money1, bottomDice);
 
         Text text = new Text();
-        Util.setText(text, 500, 250, 50, 0);
+        Util.setText(text, 450, 200, 50, 0);
 
         Text textDur = new Text();
         Util.setText(textDur, 1110, 670, 20, 0);
@@ -240,7 +239,7 @@ public class MillionaireLadgabang extends Application {
 
                 int turn = player.getTurn();
 
-                text.setText("ตาของ " + player.getPlayer(turn).getName());
+                text.setText("ตาที่ " + player.getCurrentTurn() + " : "+ player.getPlayer(turn).getName());
                 if (name[0] == "Durian") {
 
                     moneyDur.setText("เงิน " + String.format("%.2f", player.getPlayer(0).getMoney().getMoney() / 1e7) + "M");
@@ -290,7 +289,8 @@ public class MillionaireLadgabang extends Application {
 
                         int check = 0;
                         int level = place.getPlace(pos).getLevel();
-                        for (int i = level; i <= 4; ++i) {
+                        int end = level == 0 ? 3 : 4;
+                        for (int i = level; i <= end; ++i) {
                             if (place.getPlace(pos).canBuyPlace(player.getPlayer(turn), level)) {
                                 ++check;
                                 root.getChildren().add(buy[i]);
@@ -322,7 +322,7 @@ public class MillionaireLadgabang extends Application {
                             Optional<String> yresult = ydialog.showAndWait();
                             if (yresult.isPresent()) {
                                 System.out.println("Your choice: " + yresult.get() + yresult.get().charAt(0));
-                                int ran = Util.randomInt(0, 1);
+                                int ran = Util.randomInt(1, 2);
                                 int shoud = Character.getNumericValue((yresult.get().charAt(0)));
                                 if (ran == shoud) {
                                     text.setText("คุณได้เงินเพิ่ม 1M");
@@ -349,15 +349,21 @@ public class MillionaireLadgabang extends Application {
                         case 14:
                             text.setText("วัดปลูก");
                             List<String> choices = new ArrayList<>();
+                            int check = 0;
                             for (int i = 0; i < place.size(); ++i) {
                                 if (place.getPlace(i).isOwner(player.getPlayer(turn))) {
                                     choices.add(i + ":" + place.getPlace(i).getName());
+                                    ++check;
                                 }
                             }
 
-                            ChoiceDialog<String> dialog = new ChoiceDialog<>("1:Start", choices);
+                            if (check == 0) {
+                                break;
+                            }
+
+                            ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
                             dialog.setTitle("วัดปลูก");
-                            dialog.setHeaderText("เพิ่มค่าผ่านทางเป็น 2 เท่า\nถ้าคุณไม่ได้ดป็นเจ้าของ ฝ่ายตรงข้ามจะต้องถูกบังคับบริจารให้คุณ");
+                            dialog.setHeaderText("เพิ่มค่าผ่านทางที่คุณเป็นเจ้าเป็น 2 เท่า");
                             dialog.setContentText("เลือกสถานที่ที่ต้องการเพิ่มค่าผ่านทาง");
 
                             Optional<String> result = dialog.showAndWait();
@@ -426,13 +432,12 @@ public class MillionaireLadgabang extends Application {
                                 Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
                             }
 
+                            root.getChildren().add(place_red[level][tmpPos]);
+
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
                     }
-
-                    root.getChildren().add(place_red[level][tmpPos]);
-
                 } else if (turn == 1) {
                     if (place_red[level][tmpPos] == null) {
                         try {
@@ -443,12 +448,13 @@ public class MillionaireLadgabang extends Application {
                                 Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
                             }
 
+                            root.getChildren().add(place_blue[level][tmpPos]);
+
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
                     }
 
-                    root.getChildren().add(place_blue[level][tmpPos]);
                 }
 
                 root.getChildren().removeAll(askTake, imgBuy, notBuy);
@@ -734,12 +740,12 @@ public class MillionaireLadgabang extends Application {
 
         for (int i = 0; i < 21; ++i) {
             deed[i] = new ImageView("img/deed/" + (i + 1) + ".png");
-            Util.imgSetPos(deed[i], 500, 200, 300, 300);
+            Util.imgSetPos(deed[i], 500, 250, 250, 250);
         }
 
         for (int i = 0; i < 5; ++i) {
             buy[i] = new ImageView("img/deed/b" + i + ".png");
-            Util.imgSetPos(buy[i], 500, 200, 300, 300);
+            Util.imgSetPos(buy[i], 500, 250, 250, 250);
         }
     }
 

@@ -3,7 +3,7 @@ package ml.player;
 public class Money {
 
     private final double initial_money = 1e7;
-    private final double money_per_round = 1e6;
+    private final double money_per_round = 2e6;
 
     private double amount;
 
