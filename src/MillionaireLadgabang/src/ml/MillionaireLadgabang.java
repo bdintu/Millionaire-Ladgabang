@@ -765,7 +765,7 @@ public class MillionaireLadgabang extends Application {
     ImageView bg_mainmanu = new ImageView("img/bord/bg_mainmanu.gif");
     ImageView carddurian = new ImageView("img/char/charcard_du.png");
     ImageView cardcrow = new ImageView("img/char/charcard_crow.png");
-    ImageView bg_game = new ImageView("img/bord/bg_game.png");
+    ImageView bg_game = new ImageView("img/bord/bg_game.jpg");
     ImageView status = new ImageView("img/bord/c2r.png");
     ImageView status1 = new ImageView("img/bord/d1b.png");
     ImageView money = new ImageView("img/bord/เงิน.png");
