@@ -136,26 +136,9 @@ public class MillionaireLadgabang extends Application {
         return root;
     }
 
-    final int AXIS_CHAR_START_X = 650;
-    final int AXIS_CHAR_START_Y = 645;
+    int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18, 25}, {19, 26}, {20, 27}};
+    int posImg[][] = {{568, 565}, {475, 510}, {393, 457}, {313, 406}, {229, 351}, {147, 298}, {65, 245},/*7*/ {13, 217}, {97, 164}, {17, 125}, {263, 85}, {344, 68}, {415, 0}, {493, 35},/*14*/ {570, 5}, {640, 5}, {715, 45}, {790, 87}, {867, 130}, {947, 173}, {1027, 216},/*21*/ {1110, 265}, {1040, 307}, {965, 346}, {890, 393}, {805, 435}, {732, 480}, {643, 517}};
 
-    final int AXIS_CHAR_LEFT_X = 93;
-    final int AXIS_CHAR_LEFT_Y = 290;
-
-    final int AXIS_CHAR_TOP_X = 637;
-    final int AXIS_CHAR_TOP_Y = 33;
-
-    final int DIAGONAL_LEFT_X = (AXIS_CHAR_START_X - AXIS_CHAR_LEFT_X) / 7;
-    final int DIAGONAL_LEFT_Y = (AXIS_CHAR_START_Y - AXIS_CHAR_LEFT_Y) / 7;
-
-    final int DIAGONAL_RIGHT_X = (AXIS_CHAR_TOP_X - AXIS_CHAR_LEFT_X) / 7;
-    final int DIAGONAL_RIGHT_Y = (AXIS_CHAR_LEFT_Y - AXIS_CHAR_TOP_Y) / 7;
-
-    int posX[] = new int[2];
-    int posY[] = new int[2];
-
-    int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18,}, {19, 26}, {20, 27}};
-    int posImg[][] = {{568, 565}, {475, 510}, {393, 457}, {313, 406}, {229, 351}, {147, 298}, {65, 245}, {13, 217}, {97, 164}, {182, 144}, {263, 106}, {344, 68}, {415, 30}, {493, 0}, {570, 5}, {640, 5}, {715, 45}, {790, 87}, {867, 130}, {947, 173}, {1027, 216}, {1110, 265}, {1040, 307}, {965, 346}, {890, 393}, {805, 435}, {732, 480}, {643, 517}};
     int coventIndexToPos(int s) {
         for (int i = 0; i < 21; ++i) {
             if (s == indexImg[i][0]) {
@@ -166,8 +149,10 @@ public class MillionaireLadgabang extends Application {
     }
 
     int coventPosToIndex(int s) {
-        for (int i = 0; i < 21; ++i) {
+        System.out.println("coventPosToIndex : " + s);
+        for (int i = 0; i < 28; ++i) {
             if (s == indexImg[i][1]) {
+                System.out.println(i + "yes : " + indexImg[i][1]);
                 return indexImg[i][0];
             }
         }
@@ -197,13 +182,8 @@ public class MillionaireLadgabang extends Application {
         bg_game.setFitHeight(HEIGHT);
         bg_game.setFitWidth(WIDTH);
 
-        posX[0] = AXIS_CHAR_START_X - 100;
-        posY[0] = AXIS_CHAR_START_Y - 100;
-        posX[1] = posX[0] + 40;
-        posY[1] = posY[0] + 10;
-
-        Util.imgSetPos(chareter[0], posX[0], posY[0], 100, 100);
-        Util.imgSetPos(chareter[1], posX[1], posY[1] + 10, 100, 100);
+        Util.imgSetPos(chareter[0], posImg[0][0], posImg[0][1], 100, 100);
+        Util.imgSetPos(chareter[1], posImg[0][0] + 40, posImg[0][1] + 10, 100, 100);
         Util.imgSetPos(status, 0, 0, 100, 300);
         Util.imgSetPos(status1, 980, 620, 100, 300);
         Util.imgSetPos(money, 20, 35, 150, 250);
@@ -233,15 +213,27 @@ public class MillionaireLadgabang extends Application {
 
         bottomDice.setOnMouseClicked((event) -> {
             try {
+                int turn = player.getTurn();
+
+                if (!bord.haveContinueGame(player)) {
+                    root.getChildren().removeAll(bottomDice, bottomDiceHover);
+                    if (turn == 0) {
+                        Util.imgSetPos(char_winner[1], 0, 0, 0, 0);
+                        root.getChildren().add(char_winner[1]);
+                    } else if (turn == 1) {
+                        Util.imgSetPos(char_winner[0], 0, 0, 0, 0);
+                        root.getChildren().add(char_winner[0]);
+                    }
+                    return;
+                }
+
                 Util.imgSetPos(bottomDiceHover, 570, 340, 150, 150);
                 root.getChildren().remove(bottomDice);
                 root.getChildren().add(bottomDiceHover);
 
-                int turn = player.getTurn();
-
-                text.setText("ตาที่ " + player.getCurrentTurn() + " : "+ player.getPlayer(turn).getName());
+                System.out.println(player.getCurrentTurn());
+                text.setText("ตาที่ " + player.getCurrentTurn() + " : " + player.getPlayer(turn).getName());
                 if (name[0] == "Durian") {
-
                     moneyDur.setText("เงิน " + String.format("%.2f", player.getPlayer(0).getMoney().getMoney() / 1e7) + "M");
                     moneyCrow.setText("เงิน " + String.format("%.2f", player.getPlayer(1).getMoney().getMoney() / 1e7) + "M");
                 } else {
@@ -250,7 +242,6 @@ public class MillionaireLadgabang extends Application {
                 }
 
                 int walk = dice.getStd(player.getPlayer(turn)).getPoints();
-
                 charSetPos(chareter, walk);
 
                 player.getPlayer(turn).movePos(walk, player.getPlayer(turn));
@@ -266,13 +257,6 @@ public class MillionaireLadgabang extends Application {
                     if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
                         //root.getChildren().add(payToll);
                     } else {
-                        if (turn == 0) {
-                            Util.imgSetPos(char_winner[1], 0, 0, 0, 0);
-                            root.getChildren().add(char_winner[1]);
-                        } else if (turn == 1) {
-                            Util.imgSetPos(char_winner[0], 0, 0, 0, 0);
-                            root.getChildren().add(char_winner[0]);
-                        }
                         player.getPlayer(turn).setLose();
                     }
 
@@ -283,7 +267,6 @@ public class MillionaireLadgabang extends Application {
                     // สร้างได้ ไม่มีเจ้าของ
                 } else if (place.getPlace(pos).canBuild() && place.getPlace(pos).haveNotOwner()) {
                     if (place.getPlace(pos).isNotMaxLevel()) {
-                        System.out.println("fasf : " + pos);
                         int tmpDeep = coventPosToIndex(pos);
                         root.getChildren().add(deed[tmpDeep]);
 
@@ -707,33 +690,22 @@ public class MillionaireLadgabang extends Application {
 
         while (i != (currentPos + walk) % 28) {
 
-            if (i >= 0 && i < 7) {
-                posX[turn] -= DIAGONAL_LEFT_X;
-                posY[turn] -= DIAGONAL_LEFT_Y;
-            } else if (i >= 7 && i < 14) {
-                posX[turn] += DIAGONAL_RIGHT_X;
-                posY[turn] -= DIAGONAL_RIGHT_Y;
-            } else if (i >= 14 && i < 21) {
-                posX[turn] += DIAGONAL_LEFT_X;
-                posY[turn] += DIAGONAL_LEFT_Y;
-            } else if (i >= 21 && i <= 27) {
-                posX[turn] -= DIAGONAL_RIGHT_X;
-                posY[turn] += DIAGONAL_RIGHT_Y;
-            }
-
             if (i != 27) {
                 ++i;
             } else {
                 i = 0;
             }
 
-            Util.imgSetPos(chareter[turn], posX[turn], posY[turn], 100, 100);
-            System.out.println(i + " -> " + (currentPos + walk) + ", pos: " + posX[turn] + ", " + posY[turn]);
+            if (turn == 0) {
+                Util.imgSetPos(chareter[turn], posImg[i][0], posImg[i][1], 100, 100);
+            } else if (turn == 1) {
+                Util.imgSetPos(chareter[turn], posImg[i][0] + 40, posImg[i][1] + 10, 100, 100);
+            }
+
+            System.out.println(i + " -> " + (currentPos + walk) + ", pos: " + posImg[i][0] + ":" + posImg[i][1]);
 
             //TimeUnit.SECONDS.sleep(1);
         }
-
-        // อันนี้ให้ระบบรู้ว่า ย้ายไปช่องนี้ละ หลังเดินเสร็จ
     }
 
     public void setImg() {

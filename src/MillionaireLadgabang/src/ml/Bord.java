@@ -18,17 +18,20 @@ public class Bord {
 
     public boolean haveContinueGame(PlayerList player) {
 
-        if (player.getCurrentTurn() == player.getMaxTurn()) {
-            return false;
-        }
-
         int amount_loser = 0;
         for (int i = 0; i < player.size(); ++i) {
-            if (player.getPlayer(i).isLose() || player.getPlayer(i).getMoney().getMoney() < 1e6 ) {
+            if (player.getPlayer(i).isLose()) {
+                ++amount_loser;
+            } else if (player.getPlayer(i).getMoney().getMoney() < 1e6) {
                 ++amount_loser;
             }
         }
+
         if (player.size() - amount_loser == 1) {
+            return false;
+        }
+
+        if (player.getCurrentTurn() > player.getMaxTurn()) {
             return false;
         }
 
