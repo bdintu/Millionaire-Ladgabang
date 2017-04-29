@@ -16,6 +16,10 @@ public class Player {
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
+        clear();
+    }
+
+    public void clear() {
         this.lose = false;
         this.money = new Money();
         this.card = new ArrayList();
@@ -24,19 +28,19 @@ public class Player {
     public void addCard(Card card) {
         this.card.add(card);
     }
-    
-    public Card getCard(int i){
+
+    public Card getCard(int i) {
         return card.get(i);
     }
-    
-    public int getSizeCard(){
+
+    public int getSizeCard() {
         return card.size();
     }
-    
-    private void addMoneyPerRound(int walk, Player player){
+
+    private void addMoneyPerRound(int walk, Player player) {
         if (pos + walk > amount_place) {
             player.getMoney().addMoneyPerRound();
-        }        
+        }
     }
 
     public void setPos(int pos, Player player) {

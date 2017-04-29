@@ -137,7 +137,7 @@ public class MillionaireLadgabang extends Application {
     }
 
     int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18, 25}, {19, 26}, {20, 27}};
-    int posImg[][] = {{568, 565}, {475, 510}, {393, 457}, {313, 406}, {229, 351}, {147, 298}, {65, 245},/*7*/ {13, 217}, {97, 164}, {165, 125}, {263, 85}, {344, 68}, {415, 10}, {493, -20},/*14*/ {570, 5}, {640, -20}, {715, 20}, {790, 60}, {867, 105}, {947, 150}, {1027, 195},/*21*/ {1110, 265}, {1040, 307}, {965, 346}, {890, 393}, {805, 435}, {732, 480}, {643, 517}};
+    int posImg[][] = {{568, 515}, {475, 500}, {392, 447}, {313, 356}, {234, 346}, {157, 298}, {82, 249}, {13, 167}, {95, 164}, {178, 127}, {259, 91}, {344, 18}, {415, 20}, {491, -14}, {570, -45}, {636, -24}, {712, 19}, {789, 59}, {867, 103}, {948, 149}, {1030, 195}, {1110, 215}, {1038, 293}, {963, 334}, {885, 376}, {805, 385}, {725, 463}, {642, 507}};
 
     int coventIndexToPos(int s) {
         for (int i = 0; i < 21; ++i) {
@@ -216,6 +216,8 @@ public class MillionaireLadgabang extends Application {
                 int turn = player.getTurn();
 
                 if (!bord.haveContinueGame(player)) {
+                    player.clear();
+                    place.clear();
                     root.getChildren().removeAll(bottomDice, bottomDiceHover);
                     if (turn == 0) {
                         Util.imgSetPos(char_winner[1], 0, 0, 0, 0);
@@ -255,6 +257,7 @@ public class MillionaireLadgabang extends Application {
                 if (place.getPlace(pos).canBuild() && place.getPlace(pos).haveOwner() && place.getPlace(pos).isNotOwner(player.getPlayer(turn))) {
 
                     if (place.getPlace(pos).canPayToll(player.getPlayer(turn))) {
+                        place.getPlace(pos).payToll(player.getPlayer(turn));
                         //root.getChildren().add(payToll);
                     } else {
                         player.getPlayer(turn).setLose();

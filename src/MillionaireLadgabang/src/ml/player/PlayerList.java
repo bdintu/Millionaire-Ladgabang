@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class PlayerList {
-    
+
     private final int max_turn = 40;
 
     private int amount_player;
@@ -20,6 +20,12 @@ public class PlayerList {
         this.current_turn = 0;
         this.player = new ArrayList();
         createPlayer(name);
+    }
+
+    public void clear() {
+        for (int i = 0; i < amount_player; ++i) {
+            player.get(i).clear();
+        }
     }
 
     private void createPlayer(String[] name) throws NoSuchAlgorithmException {
@@ -49,12 +55,12 @@ public class PlayerList {
     public int getTurn() {
         return turn_player;
     }
-    
+
     public int getMaxTurn() {
         return max_turn;
-    }    
-    
-    public int getCurrentTurn(){
+    }
+
+    public int getCurrentTurn() {
         return current_turn;
     }
 

@@ -17,15 +17,19 @@ public class Place {
     public Place(String name, boolean can_build, double[] toll, double[] price) {
         this.name = name;
         this.can_build = can_build;
-        this.owner = -1;
-        this.current_level = 0;
         this.toll = toll;
         this.price = price;
+        clear();
     }
-    
+
+    public void clear() {
+        this.owner = -1;
+        this.current_level = 0;
+    }
+
     public void setToll(double amount) {
         this.toll[current_level] = amount;
-    }    
+    }
 
     public void setToll(int i, double amount) {
         this.toll[i] = amount;

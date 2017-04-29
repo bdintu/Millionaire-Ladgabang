@@ -5,7 +5,6 @@ import ml.player.Player;
 
 public class PlaceList {
 
-    public static int amount_side = 4;
     public static int amount_place = 28;
 
     private ArrayList<Place> place;
@@ -15,6 +14,12 @@ public class PlaceList {
         place = new ArrayList();
         lanmark = new ArrayList();
         createPlace();
+    }
+
+    public void clear() {
+        for (int i = 0; i < amount_place; ++i) {
+            place.get(i).clear();
+        }
     }
 
     public void createPlace() {
