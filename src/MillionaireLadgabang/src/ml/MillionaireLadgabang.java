@@ -137,7 +137,11 @@ public class MillionaireLadgabang extends Application {
     }
 
     int indexImg[][] = {{0, 1}, {1, 2}, {2, 4}, {3, 5}, {4, 6}, {5, 8}, {6, 9}, {7, 10}, {8, 12}, {9, 13}, {10, 15}, {11, 16}, {12, 17}, {13, 18}, {14, 19}, {15, 20}, {16, 22}, {17, 23}, {18, 25}, {19, 26}, {20, 27}};
-    int posImg[][] = {{568, 515}, {475, 500}, {392, 447}, {313, 356}, {234, 346}, {157, 298}, {82, 249}, {13, 167}, {95, 164}, {178, 127}, {259, 91}, {344, 18}, {415, 20}, {491, -14}, {570, -45}, {636, -24}, {712, 19}, {789, 59}, {867, 103}, {948, 149}, {1030, 195}, {1110, 215}, {1038, 293}, {963, 334}, {885, 376}, {805, 385}, {725, 463}, {642, 507}};
+    int posImg[][][] = {
+        {{558, 603}, {475, 550}, {392, 497}, {313, 446}, {234, 396}, {157, 348}, {82, 299}, {7, 270}, {95, 214}, {178, 177}, {259, 141}, {337, 105}, {415, 70}, {491, 36}, {567, 2}, {636, 26}, {712, 69}, {789, 109}, {867, 153}, {948, 199}, {1030, 245}, {1112, 291}, {1038, 343}, {963, 384}, {885, 426}, {805, 469}, {725, 513}, {642, 557}},
+        {{558, 566}, {473, 511}, {388, 456}, {308, 403}, {229, 350}, {152, 299}, {76, 249}, {82, 204}, {88, 160}, {168, 122}, {245, 84}, {322, 48}, {400, 13}, {475, -22}, {550, -57}, {623, -24}, {700, 18}, {778, 63}, {858, 107}, {940, 154}, {1025, 203}, {1110, 252}, {1033, 292}, {960, 338}, {880, 382}, {802, 426}, {725, 471}, {641, 519}},
+        {{588, 566}, {473, 511}, {388, 456}, {308, 403}, {229, 350}, {152, 299}, {76, 249}, {82, 204}, {88, 160}, {168, 122}, {245, 84}, {322, 48}, {400, 13}, {475, -22}, {500, -57}, {623, -24}, {700, 18}, {778, 63}, {858, 107}, {940, 154}, {1025, 203}, {1110, 252}, {1033, 292}, {960, 338}, {880, 382}, {802, 426}, {725, 471}, {641, 519}}
+    };
 
     int coventIndexToPos(int s) {
         for (int i = 0; i < 21; ++i) {
@@ -182,8 +186,8 @@ public class MillionaireLadgabang extends Application {
         bg_game.setFitHeight(HEIGHT);
         bg_game.setFitWidth(WIDTH);
 
-        Util.imgSetPos(chareter[0], posImg[0][0], posImg[0][1], 100, 100);
-        Util.imgSetPos(chareter[1], posImg[0][0] + 40, posImg[0][1] + 10, 100, 100);
+        Util.imgSetPos(chareter[0], posImg[1][0][0], posImg[1][0][1], 100, 100);
+        Util.imgSetPos(chareter[1], posImg[1][0][0] + 40, posImg[1][0][1] + 10, 100, 100);
         Util.imgSetPos(status, 0, 0, 100, 300);
         Util.imgSetPos(status1, 980, 620, 100, 300);
         Util.imgSetPos(money, 20, 35, 150, 250);
@@ -413,9 +417,9 @@ public class MillionaireLadgabang extends Application {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                             if (level == 3) {
-                                Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                                Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 100, 100);
                             } else {
-                                Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                                Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                             }
 
                             root.getChildren().add(place_red[level][tmpPos]);
@@ -429,9 +433,9 @@ public class MillionaireLadgabang extends Application {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
                             if (level == 3) {
-                                Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                                Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 100, 100);
                             } else {
-                                Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                                Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                             }
 
                             root.getChildren().add(place_blue[level][tmpPos]);
@@ -491,7 +495,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -503,7 +507,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -537,7 +541,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -549,7 +553,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -582,7 +586,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -594,7 +598,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 0, 0);
+                            Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 0, 0);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -628,7 +632,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_red[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_red[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                            Util.imgSetPos(place_red[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 100, 100);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -640,7 +644,7 @@ public class MillionaireLadgabang extends Application {
                     if (place_red[level][tmpPos] == null) {
                         try {
                             place_blue[level][tmpPos] = new ImageView("img/place/" + (level + 1) + "/blue/a" + (tmpPos + 1) + ".png");
-                            Util.imgSetPos(place_blue[level][tmpPos], posImg[pos][0], posImg[pos][1], 100, 100);
+                            Util.imgSetPos(place_blue[level][tmpPos], posImg[level][pos][0], posImg[level][pos][1], 100, 100);
                         } catch (Exception ex) {
                             System.out.println("img/place/" + (level + 1) + "/red/a" + (tmpPos + 1) + ".png");
                         }
@@ -700,12 +704,12 @@ public class MillionaireLadgabang extends Application {
             }
 
             if (turn == 0) {
-                Util.imgSetPos(chareter[turn], posImg[i][0], posImg[i][1], 100, 100);
+                Util.imgSetPos(chareter[turn], posImg[1][i][0], posImg[1][i][1], 100, 100);
             } else if (turn == 1) {
-                Util.imgSetPos(chareter[turn], posImg[i][0] + 40, posImg[i][1] + 10, 100, 100);
+                Util.imgSetPos(chareter[turn], posImg[1][i][0] + 40, posImg[1][i][1] + 10, 100, 100);
             }
 
-            System.out.println(i + " -> " + (currentPos + walk) + ", pos: " + posImg[i][0] + ":" + posImg[i][1]);
+            System.out.println(i + " -> " + (currentPos + walk) + ", pos: " + posImg[1][i][0] + ":" + posImg[1][i][1]);
 
             //TimeUnit.SECONDS.sleep(1);
         }
